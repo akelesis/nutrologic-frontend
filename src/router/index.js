@@ -10,11 +10,31 @@ const routes = [
     name: 'Selection',
     component: Selection
   },
-  //{
-  //  path: '/about',
-  //  name: 'About',
-  //  component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  //}
+  {
+    path: '/patientLogin',
+    name: 'PatientLogin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PatientLogin.vue')
+  },
+  {
+    path: '/patientRegister',
+    name: 'PatientRegister',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PatientRegister.vue')
+  },
+  {
+    path: '/patientDashboard',
+    name: 'PatientDashboard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PatientDashboard.vue')
+  },
+  {
+    path: '/nutritionistLogin',
+    name: 'NutritionistLogin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/NutritionistLogin.vue')
+  },
+  {
+    path: '/nutritionistDashboard',
+    name: 'NutritionistDashboard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/NutritionistDashboard.vue')
+  }
 ]
 
 const router = new VueRouter({

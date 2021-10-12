@@ -1,10 +1,10 @@
 <template>
   <div class="Selection">
       <div class="patient">
-          <p>SOU PACIENTE</p>
+          <router-link to="/patientLogin"><p>SOU PACIENTE</p></router-link>
       </div>
       <div class="nutritionist">
-          <p>SOU NUTRICIONISTA</p>
+          <router-link to="/nutritionistLogin"><p>SOU NUTRICIONISTA</p></router-link>
       </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
     .Selection {
@@ -34,19 +34,40 @@ export default {
         justify-content: center;
         align-items: center;
         color: #fff;
-        transition: 0.3s;
+        transition: 0.5s;
         background-size: 500%;
+        transform: rotate(0);
         background-position: top;
-        animation: teste 1s;
+    }
+
+    .patient > a, .nutritionist > a {
+        text-decoration: none;
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .patient:hover, .nutritionist:hover {
-        filter:brightness(110%);
+        background-color: #5DADB8;
+        width: 90vw;
+        background-position: 100%;
         cursor: pointer;
+        filter: brightness(110%);
+    }
+
+    .Selection:hover > div:not(:hover) {
+        font-size: 25px;
+        width: 10vw;
+        background: #aaa;
     }
 
     .patient {
-        background: linear-gradient(#43E8FF, #5DADB8);
+        background: linear-gradient(to bottom, #43E8FF, #5DADB8);
+        background-size: 300%;
+        background-position: 0;
     }
 
     .nutritionist {
