@@ -1,6 +1,6 @@
 <template>
   <div class="PatientDashboard">
-    <Header headerStyle="PatientDashboard" />
+    <Header headerStyle="PatientHeader" />
     <main class="patient-dashboard-main">
       <p>Olá {{user.name}}!</p>
       <div class="options-container">

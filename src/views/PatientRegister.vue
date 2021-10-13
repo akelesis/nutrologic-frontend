@@ -20,7 +20,7 @@
       </div>
       <button class="patient-register-btn" @click="register">CADASTRAR</button>
     </main>
-    <MainFooter />
+    <MainFooter light=true />
   </div>
 </template>
 

@@ -16,7 +16,7 @@
       <button class="patient-login-btn" @click="login">ENTRAR</button>
       <router-link to="/patientRegister">PRIMEIRO ACESSO</router-link>
     </main>
-    <MainFooter />
+    <MainFooter :light="true" />
   </div>
 </template>
 
