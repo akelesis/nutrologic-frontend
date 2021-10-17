@@ -5,10 +5,10 @@
       <p>Olá {{user.name}}!</p>
       <div class="options-container">
         <button class="new-evaluation">NOVA AVALIAÇÃO</button>
-        <button class="evaluations-history">HISTÓRICO DE AVALIAÇÕES</button>
+        <button class="evaluations-history" @click="redirectEvaluationHistory">HISTÓRICO DE AVALIAÇÕES</button>
       </div>
     </main>
-    <main-footer />
+    <main-footer light="true" />
   </div>
 </template>
 
@@ -25,6 +25,11 @@ export default {
       user: {
         name: 'João Carlos'
       }
+    }
+  },
+  methods: {
+    redirectEvaluationHistory () {
+      this.$router.push('/patient/evaluationHistory')
     }
   }
 }

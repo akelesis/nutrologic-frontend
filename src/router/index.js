@@ -26,6 +26,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/PatientDashboard.vue')
   },
   {
+    path: '/patient/evaluationHistory',
+    name: 'EvaluationHistory',
+    component: () => import(/* webpackChunkName: "about" */ '../views/EvaluationHistory.vue')
+  },
+  {
+    path: '/patient/evaluationResult',
+    name: 'PatientEvaluationResult',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PatientEvaluationResult.vue')
+  },
+  {
     path: '/nutritionistLogin',
     name: 'NutritionistLogin',
     component: () => import(/* webpackChunkName: "about" */ '../views/NutritionistLogin.vue')
