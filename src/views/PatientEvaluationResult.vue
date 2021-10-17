@@ -22,16 +22,18 @@
           <p>Esta avaliação ainda não foi aberta pelo nutricionista, deseja apagá-la?</p>
           <button class="erase-btn">Sim</button>
         </div>
+        <blue-back-button class="back-button"/>
       </main>
-      <main-footer/>
+      <main-footer :light="true" />
   </div>
 </template>
 
 <script>
+import BlueBackButton from '../components/BlueBackButton.vue'
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
 export default {
-  components: { Header, MainFooter }
+  components: { Header, MainFooter, BlueBackButton }
 }
 </script>
 
@@ -94,10 +96,12 @@ export default {
 .erase-unfinished-evaluation {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   width: 100vw;
   padding: 20px;
   color: #fff;
-  font-size: 1.2em;
+  font-size: 1.3em;
+  margin-bottom: 50px;
 }
 
 .erase-btn {
