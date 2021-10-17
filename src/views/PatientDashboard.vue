@@ -4,11 +4,11 @@
     <main class="patient-dashboard-main">
       <p>Olá {{user.name}}!</p>
       <div class="options-container">
-        <button class="new-evaluation">NOVA AVALIAÇÃO</button>
+        <button class="new-evaluation" @click="redirectEvaluation">NOVA AVALIAÇÃO</button>
         <button class="evaluations-history" @click="redirectEvaluationHistory">HISTÓRICO DE AVALIAÇÕES</button>
       </div>
     </main>
-    <main-footer light="true" />
+    <main-footer/>
   </div>
 </template>
 
@@ -30,6 +30,9 @@ export default {
   methods: {
     redirectEvaluationHistory () {
       this.$router.push('/patient/evaluationHistory')
+    },
+    redirectEvaluation () {
+      this.$router.push('/patient/evaluation/weight')
     }
   }
 }
