@@ -25,7 +25,7 @@ export default {
     padding: 10px 20px;
     font-weight: 300;
     color: #fff;
-    background-image: linear-gradient(90deg, #43E8FF, #5DADB8);
+    background-image: linear-gradient(270deg, #43E8FF, #5DADB8);
 }
 
 .NutritionistHeader {
@@ -34,7 +34,7 @@ export default {
     padding: 10px 20px;
     font-weight: 300;
     color: #fff;
-    background-image: linear-gradient(90deg, #58E28F, #2C8851);
+    background-image: linear-gradient(270deg, #58E28F, #2C8851);
 }
 
 .nutrologic-logo {

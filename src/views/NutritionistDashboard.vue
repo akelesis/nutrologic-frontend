@@ -4,7 +4,7 @@
     <main class="nutritionist-dashboard-main">
       <p>Olá {{user.name}}!</p>
       <div class="options-container">
-        <button class="open-evaluation">AUTO AVALIAÇÕES ABERTAS</button>
+        <button class="open-evaluation" @click="redirectPatientsEvaluations">AUTO AVALIAÇÕES ABERTAS</button>
         <button class="search-patient">PESQUISAR PACIENTE</button>
       </div>
     </main>
@@ -25,6 +25,11 @@ export default {
       user: {
         name: 'João Carlos'
       }
+    }
+  },
+  methods: {
+    redirectPatientsEvaluations () {
+      this.$router.push('/nutritionist/patientsEvaluations')
     }
   }
 }
