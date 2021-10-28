@@ -27,7 +27,7 @@ export default {
   components: { Header, MainFooter },
   methods: {
     login () {
-      this.$router.push('/patientDashboard')
+      this.$router.push('/patient/dashboard')
     }
   }
 }

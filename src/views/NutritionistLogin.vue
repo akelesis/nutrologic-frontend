@@ -22,7 +22,7 @@ export default {
   components: { Header, MainFooter },
   methods: {
     login () {
-      this.$router.push('/nutritionistDashboard')
+      this.$router.push('/nutritionist/dashboard')
     }
   }
 }

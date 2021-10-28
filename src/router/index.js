@@ -21,7 +21,7 @@ const routes = [
     component: () => import('../views/PatientRegister.vue')
   },
   {
-    path: '/patientDashboard',
+    path: '/patient/dashboard',
     name: 'PatientDashboard',
     component: () => import('../views/PatientDashboard.vue')
   },
@@ -61,9 +61,14 @@ const routes = [
     component: () => import('../views/NutritionistLogin.vue')
   },
   {
-    path: '/nutritionistDashboard',
+    path: '/nutritionist/dashboard',
     name: 'NutritionistDashboard',
-    component: () => import('../views/NutritionistDashboard.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/NutritionistDashboard.vue')
+  },
+  {
+    path: '/nutritionist/patientsEvaluations',
+    name: 'PatientsEvaluations',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PatientsEvaluations.vue')
   }
 ]
 
