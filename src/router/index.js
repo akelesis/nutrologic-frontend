@@ -13,47 +13,57 @@ const routes = [
   {
     path: '/patientLogin',
     name: 'PatientLogin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientLogin.vue')
+    component: () => import('../views/PatientLogin.vue')
   },
   {
     path: '/patientRegister',
     name: 'PatientRegister',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientRegister.vue')
+    component: () => import('../views/PatientRegister.vue')
   },
   {
     path: '/patientDashboard',
     name: 'PatientDashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientDashboard.vue')
+    component: () => import('../views/PatientDashboard.vue')
   },
   {
     path: '/patient/evaluationHistory',
     name: 'EvaluationHistory',
-    component: () => import(/* webpackChunkName: "about" */ '../views/EvaluationHistory.vue')
+    component: () => import('../views/EvaluationHistory.vue')
   },
   {
     path: '/patient/evaluationResult',
     name: 'PatientEvaluationResult',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientEvaluationResult.vue')
+    component: () => import('../views/PatientEvaluationResult.vue')
   },
   {
     path: '/patient/evaluation/weight',
     name: 'PatientEvaluationWeight',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientEvaluation/Weight.vue')
+    component: () => import('../views/PatientEvaluation/Weight.vue')
   },
   {
     path: '/patient/evaluation/foodIngestion',
     name: 'PatientEvaluationFoodIngestion',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientEvaluation/FoodIngestion.vue')
+    component: () => import('../views/PatientEvaluation/FoodIngestion.vue')
+  },
+  {
+    path: '/patient/evaluation/symptoms',
+    name: 'PatientEvaluationSymptoms',
+    component: () => import('../views/PatientEvaluation/Symptoms.vue')
+  },
+  {
+    path: '/patient/evaluation/activities',
+    name: 'PatientEvaluationActivities',
+    component: () => import('../views/PatientEvaluation/Activities.vue')
   },
   {
     path: '/nutritionistLogin',
     name: 'NutritionistLogin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/NutritionistLogin.vue')
+    component: () => import('../views/NutritionistLogin.vue')
   },
   {
     path: '/nutritionistDashboard',
     name: 'NutritionistDashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/NutritionistDashboard.vue')
+    component: () => import('../views/NutritionistDashboard.vue')
   }
 ]
 
