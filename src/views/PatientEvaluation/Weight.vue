@@ -4,15 +4,7 @@
     <main class="weight-container">
       <div class="weight-header">
         <p>{{ patient.name }} - Auto Avaliação</p>
-        <div class="patient-breadcrumbs">
-          <div class="dot active"></div>
-          <div class="dash"></div>
-          <div class="dot"></div>
-          <div class="dash"></div>
-          <div class="dot"></div>
-          <div class="dash"></div>
-          <div class="dot"></div>
-        </div>
+        <evaluation-breadcrumbs step="1" />
         <p>Peso</p>
       </div>
       <div class="weight-form">
@@ -55,10 +47,11 @@
 </template>
 
 <script>
+import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 export default {
-  components: { Header, MainFooter },
+  components: { Header, MainFooter, EvaluationBreadcrumbs },
   data () {
     return {
       patient: {
