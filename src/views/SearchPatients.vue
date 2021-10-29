@@ -1,31 +1,28 @@
 <template>
   <div class="NutritionistDashboard">
     <Header headerStyle="NutritionistHeader" />
-    <main class="patients-evaluations-main">
-      <div class="patients-evaluations-top-content">
+    <main class="search-patients-main">
+      <div class="search-patients-top-content">
         <div class="nutritionist-name-container">
           <p>{{user.name}}</p>
         </div>
-        <div class="patients-evaluations-container">
-          <table class="patients-evaluations-table">
+        <div class="search-input-container">
+          <input type="text" placeholder="Pesquisar"/>
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="search-patients-container">
+          <table class="search-patients-table">
             <thead>
-              <th>Data</th>
-              <th>Horário</th>
+              <th>Última avaliação</th>
               <th>Nome</th>
-              <th>Nutricionista</th>
-              <th>Status</th>
               <th>Ações</th>
             </thead>
             <tbody>
               <tr v-for="evaluation in PatientEvaluations" :key="evaluation.id">
                 <td>{{evaluation.data}}</td>
-                <td>{{evaluation.horario}}</td>
                 <td>{{evaluation.nome}}</td>
-                <td>{{evaluation.nutricionista}}</td>
-                <td>{{evaluation.status}}</td>
-                <td class="action-buttons">
-                  <i class="far fa-check-square"></i>
-                  <i class="fas fa-search" @click="redirectSearchPatients"></i>
+                <td class="action-button">
+                  <i class="fas fa-search"></i>
                 </td>
               </tr>
             </tbody>
@@ -57,26 +54,17 @@ export default {
         {
           id: '1',
           data: '01/08/2020',
-          horario: '13:35',
-          nome: 'Júlia Santana',
-          nutricionista: '-',
-          status: 'Pendente'
+          nome: 'Júlia Santana'
         },
         {
           id: '2',
           data: '01/08/2020',
-          horario: '13:53',
-          nome: 'Mario Alberto de Castro Gomes',
-          nutricionista: 'Dr. Gustavo Rocha',
-          status: 'Parcial'
+          nome: 'Mario Alberto de Castro Gomes'
         },
         {
           id: '3',
           data: '01/08/2020',
-          horario: '14:28',
-          nome: 'Amanda Meireles da Conceição',
-          nutricionista: '-',
-          status: 'Pendente'
+          nome: 'Amanda Meireles da Conceição'
         }
       ]
     }
@@ -84,6 +72,9 @@ export default {
   methods: {
     redirectNutritionistDashboard () {
       this.$router.push('/nutritionist/dashboard')
+    },
+    redirectPatientsEvaluations () {
+      this.$router.push('/nutritionist/patientsEvaluations')
     }
   }
 }
@@ -99,7 +90,7 @@ export default {
   font-weight: 300;
 }
 
-.patients-evaluations-main{
+.search-patients-main{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -108,7 +99,7 @@ export default {
   margin-top: 50px;
 }
 
-.patients-evaluations-top-content{
+.search-patients-top-content{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -127,19 +118,52 @@ export default {
   color: #B0B0B0;
 }
 
-.patients-evaluations-container{
+.search-input-container{
+  display: flex;
+  flex-direction: row;
+  width: 40vw;
+  margin: 30px 0;
+  border-bottom: 2px solid #58E28F;
+}
+
+.search-input-container input{
+  width: 100%;
+  height: 50px;
+  font-size: 30px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #B0B0B0;
+  font-weight: 300;
+  padding: 0 15px;
+  border: none;
+  outline: none;
+  transition: 0.1s;
+}
+
+.search-input-container i{
+  color: #58E28F;
+  align-self: center;
+  font-size: 30px;
+  padding-right: 15px;
+}
+
+.search-input-container i:hover{
+  cursor: pointer;
+  filter: brightness(80%);
+}
+
+.search-patients-container{
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   min-width: 70vw;
-  max-height: 500px;
+  max-height: 400px;
   overflow: auto;
   margin-top: 50px;
   margin-bottom: 30px;
 }
 
-.patients-evaluations-table{
+.search-patients-table{
   width: 100%;
   text-align: start;
   border-collapse: collapse;
@@ -147,38 +171,39 @@ export default {
   color: #B0B0B0;
 }
 
-.patients-evaluations-table thead {
+.search-patients-table thead {
   border-bottom: 1px solid #C4C4C4;
 }
 
-.patients-evaluations-table th {
+.search-patients-table th {
   text-align: start;
 }
 
-.patients-evaluations-table thead::after {
+.search-patients-table thead::after {
   height: 10px;
   display: table-row;
   content: '';
 }
 
-.patients-evaluations-table tbody::before {
+.search-patients-table tbody::before {
   height: 10px;
   display: table-row;
   content: '';
 }
 
-.patients-evaluations-table tr{
+.search-patients-table tr{
   line-height: 40px;
 }
 
-.action-buttons {
+.action-button {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
+  padding-left: 20%;
   color: #58E28F;
 }
 
-.action-buttons i:hover{
+.action-button i:hover{
   cursor: pointer;
   filter: brightness(80%);
 }

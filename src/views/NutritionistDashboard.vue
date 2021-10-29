@@ -5,7 +5,7 @@
       <p>Olá {{user.name}}!</p>
       <div class="options-container">
         <button class="open-evaluation" @click="redirectPatientsEvaluations">AUTO AVALIAÇÕES ABERTAS</button>
-        <button class="search-patient">PESQUISAR PACIENTE</button>
+        <button class="search-patient" @click="redirectSearchPatients">PESQUISAR PACIENTE</button>
       </div>
     </main>
     <main-footer />
@@ -30,6 +30,9 @@ export default {
   methods: {
     redirectPatientsEvaluations () {
       this.$router.push('/nutritionist/patientsEvaluations')
+    },
+    redirectSearchPatients () {
+      this.$router.push('/nutritionist/searchPatients')
     }
   }
 }
