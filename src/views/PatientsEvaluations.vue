@@ -25,7 +25,7 @@
                 <td>{{evaluation.status}}</td>
                 <td class="action-buttons">
                   <i class="far fa-check-square"></i>
-                  <i class="fas fa-search" @click="redirectSearchPatients"></i>
+                  <i class="fas fa-search" @click="redirectPatientAutoEvalReport"></i>
                 </td>
               </tr>
             </tbody>
@@ -84,6 +84,9 @@ export default {
   methods: {
     redirectNutritionistDashboard () {
       this.$router.push('/nutritionist/dashboard')
+    },
+    redirectPatientAutoEvalReport () {
+      this.$router.push('/nutritionist/patientAutoEvalReport')
     }
   }
 }

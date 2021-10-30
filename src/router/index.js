@@ -74,6 +74,11 @@ const routes = [
     path: '/nutritionist/searchPatients',
     name: 'searchPatients',
     component: () => import(/* webpackChunkName: "about" */ '../views/SearchPatients.vue')
+  },
+  {
+    path: '/nutritionist/patientAutoEvalReport',
+    name: 'patientAutoEvalReport',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PatientAutoEvalReport.vue')
   }
 ]
 
