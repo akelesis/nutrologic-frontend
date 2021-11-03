@@ -1,5 +1,5 @@
 <template>
-  <div class="EvaluationBreadcrumbs">
+  <div :style="cssVars" class="EvaluationBreadcrumbs">
     <div class="dot" :class="step > 0 ? 'active' : ''"></div>
     <div class="dash" :class="step > 1 ? 'active' : ''"></div>
     <div class="dot" :class="step > 1  ? 'active' : ''"></div>
@@ -12,7 +12,15 @@
 
 <script>
 export default {
-  props: ['step']
+  props: ['step', 'evalType'],
+  computed: {
+    cssVars () {
+      return {
+        '--color': this.evalType === 'patient' ? '#9feeff' : '#58E28F',
+        '--box-shadow': this.evalType === 'patient' ? '#fff' : '#58E28F'
+      }
+    }
+  }
 }
 </script>
 
@@ -39,7 +47,7 @@ export default {
 }
 
 .active {
-  background-color: #9feeff;
-  box-shadow: 0 0 10px #fff;
+  background-color: var(--color);
+  box-shadow: 0 0 10px var(--box-shadow);
 }
 </style>

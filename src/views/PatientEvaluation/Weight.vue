@@ -4,7 +4,7 @@
     <main class="weight-container">
       <div class="weight-header">
         <p>{{ patient.name }} - Auto Avaliação</p>
-        <evaluation-breadcrumbs step="1" />
+        <evaluation-breadcrumbs step="1" evalType="patient" />
         <p>Peso</p>
       </div>
       <div class="weight-form">

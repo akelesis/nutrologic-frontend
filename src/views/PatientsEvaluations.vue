@@ -120,7 +120,7 @@ export default {
 
 .nutritionist-name-container{
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   width: 100vw;
   padding-left: 50px;
 }
@@ -133,7 +133,7 @@ export default {
 .patients-evaluations-container{
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   min-width: 70vw;
   max-height: 500px;

@@ -4,7 +4,7 @@
     <main class="food-ingestion-container">
       <div class="food-ingestion-header">
         <p>{{ patient.name }} - Auto Avaliação</p>
-        <evaluation-breadcrumbs step="2" />
+        <evaluation-breadcrumbs step="2" evalType="patient" />
         <p>Peso</p>
       </div>
       <div class="food-ingestion-form">

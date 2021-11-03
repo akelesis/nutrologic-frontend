@@ -63,22 +63,27 @@ const routes = [
   {
     path: '/nutritionist/dashboard',
     name: 'NutritionistDashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/NutritionistDashboard.vue')
+    component: () => import('../views/NutritionistDashboard.vue')
   },
   {
     path: '/nutritionist/patientsEvaluations',
     name: 'PatientsEvaluations',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientsEvaluations.vue')
+    component: () => import('../views/PatientsEvaluations.vue')
   },
   {
     path: '/nutritionist/searchPatients',
     name: 'searchPatients',
-    component: () => import(/* webpackChunkName: "about" */ '../views/SearchPatients.vue')
+    component: () => import('../views/SearchPatients.vue')
   },
   {
     path: '/nutritionist/patientAutoEvalReport',
     name: 'patientAutoEvalReport',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PatientAutoEvalReport.vue')
+    component: () => import('../views/PatientAutoEvalReport.vue')
+  },
+  {
+    path: '/nutritionist/evaluation/medicalRecords01',
+    name: 'medicalRecords01',
+    component: () => import('../views/NutritionistEvaluation/MedicalRecords01.vue')
   }
 ]
 
