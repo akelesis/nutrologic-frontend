@@ -89,6 +89,11 @@ const routes = [
     path: '/nutritionist/evaluation/medicalRecords02',
     name: 'medicalRecords02',
     component: () => import('../views/NutritionistEvaluation/MedicalRecords02.vue')
+  },
+  {
+    path: '/nutritionist/evaluation/medicalRecords03',
+    name: 'medicalRecords03',
+    component: () => import('../views/NutritionistEvaluation/MedicalRecords03.vue')
   }
 ]
 
