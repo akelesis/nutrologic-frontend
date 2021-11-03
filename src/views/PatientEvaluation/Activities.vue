@@ -4,7 +4,7 @@
       <main class="activities-container">
         <div class="activities-header">
           <p>{{ patient.name }} - Auto Avaliação</p>
-          <evaluation-breadcrumbs step="4" />
+          <evaluation-breadcrumbs step="4" evalType="patient"/>
           <p>Atividade e Função</p>
         </div>
         <div class="activities-body">

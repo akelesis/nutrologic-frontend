@@ -151,7 +151,7 @@ export default {
 
 .nutritionist-name-container {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   width: 100vw;
   padding-left: 50px;
 }

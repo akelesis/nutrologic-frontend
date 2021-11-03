@@ -4,7 +4,7 @@
     <main class="symptoms-container">
       <div class="symptoms-header">
         <p>{{ patient.name }} - Auto Avaliação</p>
-        <evaluation-breadcrumbs step="3" />
+        <evaluation-breadcrumbs step="3" evalType="patient" />
         <p class="page-title">Sintomas</p>
       </div>
       <div class="symptoms-container">
