@@ -10,7 +10,7 @@
           <span>Júlia Santana</span>
           <i class="far fa-file-alt" />
         </div>
-        <evaluation-breadcrumbs step="2"/>
+        <evaluation-breadcrumbs step="2" stepsCounter="10" />
         <p id="medical-records-title">Cadastro de Prontuário e Avaliação</p>
         <div class="medical-records-content-container">
           <default-text-area rows="3" placeholder="Exames laboratoriais"/>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="nav-buttons-container">
-        <green-button label="Anterior"/>
+        <green-button label="Anterior" :isInverted="true"/>
         <green-button label="Próximo"/>
       </div>
     </main>
@@ -83,7 +83,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 300;
   color: #B0B0B0;

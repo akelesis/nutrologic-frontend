@@ -1,10 +1,10 @@
 <template>
-  <button class="green-btn">{{label}}</button>
+  <button :class="isInverted ? 'inverted' : 'green-btn'">{{label}}</button>
 </template>
 
 <script>
 export default {
-  props: ['label']
+  props: ['label', 'isInverted']
 }
 </script>
 
@@ -23,7 +23,20 @@ export default {
     cursor: pointer;
 }
 
+.inverted {
+    margin-bottom: 50px;
+    padding: 10px 100px;
+    background-color: #fff;
+    border:1px solid #4CBA78;
+    color: #4CBA78;
+    border-radius: 10px;
+    font-size: 30px;
+    font-family: 'Roboto Condensed', sans-serif;
+    transition: .3s;
+    cursor: pointer;
+}
+
 .green-btn:hover {
-    box-shadow: 0 1px 1px #0004;
+  filter: brightness(80%);
 }
 </style>
