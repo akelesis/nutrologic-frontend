@@ -16,7 +16,6 @@ export default {
     color: #fff;
     border: none;
     border-radius: 10px;
-    box-shadow: 0 4px 4px #0004;
     font-size: 30px;
     font-family: 'Roboto Condensed', sans-serif;
     transition: .3s;
