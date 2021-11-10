@@ -22,7 +22,7 @@ export default {
 <style>
 .NutritionistRadius {
   display: flex;
-  margin: 5px 0;
+  margin: 5px 10px;
 }
 
 .NutritionistRadius span {
