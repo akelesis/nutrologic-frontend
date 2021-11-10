@@ -17,6 +17,12 @@ export default {
         '--color': this.evalType === 'patient' ? '#9feeff' : '#58E28F',
         '--box-shadow': this.evalType === 'patient' ? '#fff' : '#58E28F'
       }
+    },
+    dotCounter () {
+      return this.stepsCounter
+    },
+    dashCounter () {
+      return this.stepsCounter - 1
     }
   }
 }
