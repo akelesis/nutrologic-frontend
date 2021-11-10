@@ -1,15 +1,10 @@
 <template>
   <div :style="cssVars" class="EvaluationBreadcrumbs">
     <div class="dot" :class="step > 0 ? 'active' : ''"></div>
-    <span v-for="n in dashCounter" :key="n" class="EvaluationBreadcrumbs">
-      <div class="dash" :class="step > n ? 'active' : ''"></div>
-      <div class="dot" :class="step > n ? 'active' : ''"></div>
+    <span v-for="n in stepsCounter-1" :key="n" class="EvaluationBreadcrumbs">
+      <div class="dash" :class="step > n+1 ? 'active' : ''"></div>
+      <div class="dot" :class="step > n+1 ? 'active' : ''"></div>
     </span>
-    <!-- <div class="dot" :class="step > 1  ? 'active' : ''"></div>
-    <div class="dash" :class="step > 2  ? 'active' : ''"></div>
-    <div class="dot" :class="step > 2  ? 'active' : ''"></div>
-    <div class="dash" :class="step > 3  ? 'active' : ''"></div>
-    <div class="dot" :class="step > 3  ? 'active' : ''"></div> -->
   </div>
 </template>
 
