@@ -49,7 +49,7 @@
         </div>
         <p id="total-score">Pontuação Total: 0</p>
       </div>
-      <evaluation-breadcrumbs step="3" stepsCounter="3"/>
+      <evaluation-breadcrumbs class="no-margin" step="3" stepsCounter="3"/>
       <div class="nav-buttons-container">
         <green-button label="Anterior" :isInverted="true"/>
         <green-button label="Próximo"/>
@@ -252,6 +252,10 @@ export default {
   color: #4CBA78;
   text-align: left;
   margin-top: 20px;
+}
+
+.no-margin {
+  margin: 0;
 }
 
 .nav-buttons-container {

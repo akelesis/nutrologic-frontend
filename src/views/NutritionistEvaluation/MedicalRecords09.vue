@@ -55,7 +55,7 @@
         </div>
         <p id="total-score">Pontuação Total: 0</p>
       </div>
-      <evaluation-breadcrumbs step="1" stepsCounter="3"/>
+      <evaluation-breadcrumbs class="no-margin" step="1" stepsCounter="3"/>
       <div class="nav-buttons-container">
         <green-button label="Anterior" :isInverted="true"/>
         <green-button label="Próximo"/>
@@ -162,7 +162,7 @@ export default {
 
 .medical-records-grid-container {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
 }
 
@@ -183,7 +183,7 @@ export default {
 .grid-text-center {
   font-size: 20px;
   text-align: center;
-  line-height: 40px;
+  line-height: 30px;
 }
 
 .grid-input {
@@ -249,6 +249,10 @@ export default {
   color: #4CBA78;
   text-align: left;
   margin-top: 20px;
+}
+
+.no-margin {
+  margin: 0;
 }
 
 .nav-buttons-container {
