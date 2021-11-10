@@ -134,6 +134,11 @@ const routes = [
     path: '/nutritionist/evaluation/medicalRecords11',
     name: 'medicalRecords11',
     component: () => import('../views/NutritionistEvaluation/MedicalRecords11.vue')
+  },
+  {
+    path: '/nutritionist/evaluation/medicalRecords12',
+    name: 'medicalRecords12',
+    component: () => import('../views/NutritionistEvaluation/MedicalRecords12.vue')
   }
 ]
 
