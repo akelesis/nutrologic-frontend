@@ -10,7 +10,7 @@ export default {
 
 <style>
 .DefaultTextArea {
-  width: 100%;
+  min-width: 50vw;
   resize: none;
   border-radius: 5px;
   border: 1px solid #4CBA78;

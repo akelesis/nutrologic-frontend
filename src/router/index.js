@@ -101,6 +101,16 @@ const routes = [
     component: () => import('../views/NutritionistEvaluation/MedicalRecords04.vue')
   },
   {
+    path: '/nutritionist/evaluation/medicalRecords05',
+    name: 'medicalRecords05',
+    component: () => import('../views/NutritionistEvaluation/MedicalRecords05.vue')
+  },
+  {
+    path: '/nutritionist/evaluation/medicalRecords06',
+    name: 'medicalRecords06',
+    component: () => import('../views/NutritionistEvaluation/MedicalRecords06.vue')
+  },
+  {
     path: '/nutritionist/evaluation/medicalRecords07',
     name: 'medicalRecords07',
     component: () => import('../views/NutritionistEvaluation/MedicalRecords07.vue')
