@@ -44,7 +44,7 @@
           <nutritionist-radius class="row-6 column-5 grid-input" value="" id="item5-4" name="item5"/>
           <div class="row-7 column-1 score-container">
             <span class="grid-text-start">PONTUAÇÃO GERAL</span>
-            <default-input inputType="text" placeholder=""/>
+            <default-select :options="options" />
           </div>
         </div>
         <p id="total-score">Pontuação Total: 0</p>
@@ -65,7 +65,7 @@ import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import NutritionistRadius from '../../components/NutritionistRadius.vue'
-import DefaultInput from '../../components/DefaultInput.vue'
+import DefaultSelect from '../../components/DefaultSelect.vue'
 
 export default {
   components: {
@@ -74,13 +74,14 @@ export default {
     GreenButton,
     EvaluationBreadcrumbs,
     NutritionistRadius,
-    DefaultInput
+    DefaultSelect
   },
   data () {
     return {
       user: {
         name: 'Dr. João Carlos'
-      }
+      },
+      options: [1, 2, 3]
     }
   }
 }

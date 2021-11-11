@@ -19,7 +19,7 @@
           </div>
           <div class="primary-disease-input-container default-width">
             <span>Estadiamento da doença primária: </span>
-            <default-input inputType="text" placeholder=""/>
+            <default-select :options="deseaseStateOptions" />
           </div>
           <div class="text-area-input-container">
             <p>Outro</p>
@@ -52,9 +52,9 @@ import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
-import DefaultInput from '../../components/DefaultInput.vue'
 import DefaultCheckbox from '../../components/DefaultCheckbox.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
+import DefaultSelect from '../../components/DefaultSelect.vue'
 
 export default {
   components: {
@@ -62,15 +62,16 @@ export default {
     MainFooter,
     GreenButton,
     EvaluationBreadcrumbs,
-    DefaultInput,
     DefaultCheckbox,
-    DefaultTextArea
+    DefaultTextArea,
+    DefaultSelect
   },
   data () {
     return {
       user: {
         name: 'Dr. João Carlos'
-      }
+      },
+      deseaseStateOptions: ['I', 'II', 'III', 'IV']
     }
   }
 }
