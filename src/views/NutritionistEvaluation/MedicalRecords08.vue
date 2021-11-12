@@ -38,8 +38,8 @@
         <p id="total-score">Pontuação Total: 0</p>
       </div>
       <div class="nav-buttons-container">
-        <green-button label="Anterior" :isInverted="true"/>
-        <green-button label="Próximo"/>
+        <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
+        <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
     </main>
     <MainFooter />
@@ -67,11 +67,19 @@ export default {
         name: 'Dr. João Carlos'
       }
     }
+  },
+  methods: {
+    redirectNextRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords09')
+    },
+    redirectPreviousRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords07')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .MedicalRecords {
   display: flex;
   flex-direction: column;

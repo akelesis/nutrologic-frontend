@@ -2,8 +2,8 @@
   <div :style="cssVars" class="EvaluationBreadcrumbs">
     <div class="dot" :class="step > 0 ? 'active' : ''"></div>
     <span v-for="n in stepsCounter-1" :key="n" class="EvaluationBreadcrumbs">
-      <div class="dash" :class="step > n+1 ? 'active' : ''"></div>
-      <div class="dot" :class="step > n+1 ? 'active' : ''"></div>
+      <div class="dash" :class="step > n ? 'active' : ''"></div>
+      <div class="dot" :class="step > n ? 'active' : ''"></div>
     </span>
   </div>
 </template>

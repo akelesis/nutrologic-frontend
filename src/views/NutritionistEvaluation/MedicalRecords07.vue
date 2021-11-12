@@ -39,8 +39,8 @@
         </div>
       </div>
       <div class="nav-buttons-container">
-        <green-button label="Anterior" :isInverted="true"/>
-        <green-button label="Próximo"/>
+        <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
+        <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
     </main>
     <MainFooter />
@@ -73,11 +73,19 @@ export default {
       },
       deseaseStateOptions: ['I', 'II', 'III', 'IV']
     }
+  },
+  methods: {
+    redirectNextRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords08')
+    },
+    redirectPreviousRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords06')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .MedicalRecords {
   display: flex;
   flex-direction: column;
@@ -151,12 +159,15 @@ export default {
 .text-area-input-container {
   font-size: 20px;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .medical-records-input-container {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  /* width: 70%; */
 }
 
 .primary-disease-input-container {

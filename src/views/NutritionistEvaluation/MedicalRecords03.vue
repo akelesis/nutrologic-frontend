@@ -10,7 +10,7 @@
           <span>Júlia Santana</span>
           <i class="far fa-file-alt" />
         </div>
-        <evaluation-breadcrumbs step="3"/>
+        <evaluation-breadcrumbs step="3" stepsCounter="10"/>
         <p id="medical-records-title">Cadastro de Prontuário e Avaliação</p>
         <div class="medical-records-content-container">
           <div class="medical-records-evacuation">
@@ -39,8 +39,8 @@
         </div>
       </div>
       <div class="nav-buttons-container">
-        <green-button label="Anterior"/>
-        <green-button label="Próximo"/>
+        <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
+        <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
     </main>
     <MainFooter />
@@ -72,11 +72,19 @@ export default {
         name: 'Dr. João Carlos'
       }
     }
+  },
+  methods: {
+    redirectNextRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords04')
+    },
+    redirectPreviousRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords02')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .MedicalRecords {
   display: flex;
   flex-direction: column;
@@ -111,6 +119,8 @@ export default {
 .medical-records-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   min-width: 60vw;
   height: 100%;
 }
@@ -150,7 +160,7 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 
@@ -176,7 +186,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 20px;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 .medical-records-urinalysis p {
@@ -196,7 +207,7 @@ export default {
   gap: 20px;
   width: 50%;
   font-size: 20px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .nav-buttons-container {

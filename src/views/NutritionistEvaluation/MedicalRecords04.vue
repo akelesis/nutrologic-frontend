@@ -10,7 +10,7 @@
           <span>Júlia Santana</span>
           <i class="far fa-file-alt" />
         </div>
-        <evaluation-breadcrumbs step="4"/>
+        <evaluation-breadcrumbs step="4" stepsCounter="10"/>
         <p id="medical-records-title">Cadastro de Prontuário e Avaliação - Antropometria</p>
         <div class="medical-records-form-container">
           <div class="input-row-container">
@@ -97,8 +97,8 @@
         </div>
       </div>
       <div class="nav-buttons-container">
-        <green-button label="Anterior"/>
-        <green-button label="Próximo"/>
+        <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
+        <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
     </main>
     <MainFooter />
@@ -126,11 +126,19 @@ export default {
         name: 'Dr. João Carlos'
       }
     }
+  },
+  methods: {
+    redirectNextRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords05')
+    },
+    redirectPreviousRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords03')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .MedicalRecords {
   display: flex;
   flex-direction: column;
@@ -157,7 +165,7 @@ export default {
   padding-left: 50px;
 }
 
-.nutritionist-name-container p{
+.nutritionist-name-container p {
   font-size: 30px;
   color: #B0B0B0;
 }
@@ -202,9 +210,8 @@ export default {
 
 .medical-records-form-container {
   display: flex;
-  /* flex: 1; */
   flex-direction: column;
-  justify-content: space-evenly;
+  width: 100%;
   align-items: center;
 }
 

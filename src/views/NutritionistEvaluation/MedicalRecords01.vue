@@ -11,7 +11,7 @@
             <span>Júlia Santana</span>
             <i class="far fa-file-alt" />
           </div>
-          <evaluation-breadcrumbs step="1" :stepsCounter="10" />
+          <evaluation-breadcrumbs step="1" stepsCounter="10" />
           <p id="medical-records-title">Cadastro de Prontuário e Avaliação</p>
           <div class="medical-records-content-container">
             <div class="nutritionist-input-group">
@@ -42,10 +42,10 @@
                 </div>
               </div>
             </div>
-            <default-text-area placeholder="Tratamento" :rows="2"/>
+            <default-text-area placeholder="Tratamento" :rows="3"/>
           </div>
         </div>
-        <green-button label="Próximo"/>
+        <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
     </main>
     <main-footer />
@@ -73,22 +73,27 @@ export default {
   data () {
     return {
       user: {
-        name: 'Dr Teste'
+        name: 'Dr. João Carlos'
       }
+    }
+  },
+  methods: {
+    redirectNextRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords02')
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .MedicalRecords {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
+  height: 100vh;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 300;
-  color: #b0b0b0;
+  color: #B0B0B0;
 }
 
 .medical-records-main {
@@ -96,9 +101,8 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  min-height: 80vh;
+  height: 100%;
   margin-top: 50px;
-
 }
 
 .nutritionist-name-container {
@@ -119,7 +123,7 @@ export default {
   min-width: 60vw;
   height: 100%;
   align-items: center;
-  margin: 20px 0;
+  margin: 0;
 }
 
 .patient-name-file-container {
@@ -153,10 +157,13 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
-  max-width: 45vw;
   min-width: 30vw;
+}
+
+.medical-records-content-container input {
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .nutritionist-input-group {
@@ -199,6 +206,11 @@ export default {
 .desease-stage-container {
   display: flex;
   justify-content: space-between;
+}
+
+#medical-records-title {
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
 </style>

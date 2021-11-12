@@ -57,8 +57,8 @@
       </div>
       <evaluation-breadcrumbs class="no-margin" step="1" stepsCounter="3"/>
       <div class="nav-buttons-container">
-        <green-button label="Anterior" :isInverted="true"/>
-        <green-button label="Próximo"/>
+        <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
+        <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
     </main>
     <MainFooter />
@@ -86,11 +86,19 @@ export default {
         name: 'Dr. João Carlos'
       }
     }
+  },
+  methods: {
+    redirectNextRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords10')
+    },
+    redirectPreviousRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords08')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .MedicalRecords {
   display: flex;
   flex-direction: column;

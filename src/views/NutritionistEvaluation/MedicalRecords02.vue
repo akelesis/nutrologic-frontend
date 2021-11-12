@@ -41,8 +41,8 @@
         </div>
       </div>
       <div class="nav-buttons-container">
-        <green-button label="Anterior" :isInverted="true"/>
-        <green-button label="Próximo"/>
+        <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
+        <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
     </main>
     <MainFooter />
@@ -74,16 +74,24 @@ export default {
         name: 'Dr. João Carlos'
       }
     }
+  },
+  methods: {
+    redirectNextRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords03')
+    },
+    redirectPreviousRecord () {
+      this.$router.push('/nutritionist/evaluation/medicalRecords01')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .MedicalRecords {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
+  height: 100vh;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 300;
   color: #B0B0B0;
@@ -113,6 +121,8 @@ export default {
 .medical-records-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   min-width: 60vw;
   height: 100%;
 }
@@ -154,13 +164,14 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+  margin: 0;
 }
 
 .medical-records-allergies {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -179,7 +190,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
 }
 
