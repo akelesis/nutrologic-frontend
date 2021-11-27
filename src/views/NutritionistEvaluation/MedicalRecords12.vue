@@ -45,10 +45,11 @@
       </div>
       <div class="nav-buttons-container">
         <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
-        <green-button label="Finalizar"/>
+        <green-button label="Finalizar" @click.native="$refs.medicalRecordModal.openModal()"/>
       </div>
     </main>
     <MainFooter />
+    <medical-record-modal ref="medicalRecordModal"/>
   </div>
 </template>
 
@@ -58,6 +59,7 @@ import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import NutritionistRadius from '../../components/NutritionistRadius.vue'
+import MedicalRecordModal from '../../components/MedicalRecordModal.vue'
 
 export default {
   components: {
@@ -65,7 +67,8 @@ export default {
     MainFooter,
     GreenButton,
     EvaluationBreadcrumbs,
-    NutritionistRadius
+    NutritionistRadius,
+    MedicalRecordModal
   },
   data () {
     return {
