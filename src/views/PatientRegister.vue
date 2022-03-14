@@ -9,14 +9,14 @@
         </small>
       </div>
       <div class="input-group">
-        <input type="text" placeholder="* Nome Completo" />
-        <input type="date"/>
-        <input type="text" placeholder="* Telefone" />
-        <input type="text" placeholder="CPF" />
-        <input type="text" placeholder="Email" />
-        <input type="text" placeholder="* Usuário" />
-        <input type="password" placeholder="* Senha" />
-        <input type="password" placeholder="* Confirme a senha" />
+        <input type="text" placeholder="* Nome Completo" v-model="patient.patient_name" />
+        <input type="date" v-model="patient.patient_birthday" />
+        <input type="text" placeholder="* Telefone" v-model="patient.patient_phone" />
+        <input type="text" placeholder="CPF" v-model="patient.patient_cpf" />
+        <input type="text" placeholder="Email" v-model="patient.patient_email" />
+        <input type="text" placeholder="* Usuário" v-model="patient.patient_nickname" />
+        <input type="password" placeholder="* Senha" v-model="patient.patient_password" />
+        <input type="password" placeholder="* Confirme a senha" v-model="patient.patient_password_confirm" />
       </div>
       <button class="patient-register-btn" @click="register">CADASTRAR</button>
     </main>
@@ -27,11 +27,21 @@
 <script>
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
+import axios from 'axios'
+import { baseUrl } from '../global'
 export default {
   components: { Header, MainFooter },
+  data () {
+    return {
+      patient: {}
+    }
+  },
   methods: {
     register () {
-      this.$router.push('/patientDashboard')
+      axios.post(`${baseUrl}/patient`, this.patient)
+        .then(res => alert(res.data.msg))
+        .then(() => this.$router.push('/patientLogin'))
+        .catch(err => alert(err.response.data.msg))
     }
   }
 }

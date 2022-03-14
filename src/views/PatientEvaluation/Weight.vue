@@ -3,7 +3,7 @@
     <Header headerStyle="TransparentHeader" />
     <main class="weight-container">
       <div class="weight-header">
-        <p>{{ patient.name }} - Auto Avaliação</p>
+        <p>{{ user.name }} - Auto Avaliação</p>
         <evaluation-breadcrumbs step="1" evalType="patient" stepsCounter="4" />
         <p>Peso</p>
       </div>
@@ -11,36 +11,36 @@
         <p>Resumindo meu peso atual e recente:</p>
         <div class="statement-container">
           <p>Eu atualmente peso aproximadamente</p>
-          <input class="small-input" type="text" />
+          <input class="small-input" type="text" v-model="patientEvaluation.currentWeight" />
           <p>Kg</p>
         </div>
         <div class="statement-container">
           <p>Eu tenho aproximadamente</p>
-          <input class="small-input" type="text" />
+          <input class="small-input" type="text" v-model="patientEvaluation.sizeMeters" />
           <p>metro(s) e</p>
-          <input class="small-input" type="text" />
+          <input class="small-input" type="text" v-model="patientEvaluation.sizeCentimeters" />
           <p>cm</p>
         </div>
         <div class="statement-container">
           <p>Há um mês eu costumava pesar</p>
-          <input class="small-input" type="text" />
+          <input class="small-input" type="text" v-model="patientEvaluation.oneMonthWeight" />
           <p>Kg</p>
         </div>
         <div class="statement-container">
           <p>Há seis meses eu costumava pesar</p>
-          <input class="small-input" type="text" />
+          <input class="small-input" type="text" v-model="patientEvaluation.sixMonthsWeight" />
           <p>Kg</p>
         </div>
         <div class="weight-status-container">
           <p>Durante as duas últimas semanas o meu peso:</p>
           <div class="btn-container">
-            <button class="patient-option-btn active-btn">Diminuiu</button>
-            <button class="patient-option-btn">Ficou igual</button>
-            <button class="patient-option-btn">Aumentou</button>
+            <button @click="changeWeightStatus(0)" :class="weightStatus[0].classList">Diminuiu</button>
+            <button @click="changeWeightStatus(1)" :class="weightStatus[1].classList">Ficou igual</button>
+            <button @click="changeWeightStatus(2)" :class="weightStatus[2].classList">Aumentou</button>
           </div>
         </div>
       </div>
-      <div class="next-page-btn">PRÓXIMO</div>
+      <div class="next-page-btn" @click="redirectToFoodIngestion">PRÓXIMO</div>
     </main>
     <main-footer :light="true"/>
   </div>
@@ -54,10 +54,50 @@ export default {
   components: { Header, MainFooter, EvaluationBreadcrumbs },
   data () {
     return {
-      patient: {
-        name: 'João da Silva'
+      weightStatus: [
+        { value: 'Diminuiu', active: false, classList: 'patient-option-btn' },
+        { value: 'Ficou igual', active: false, classList: 'patient-option-btn' },
+        { value: 'Aumentou', active: false, classList: 'patient-option-btn' }
+      ]
+    }
+  },
+  methods: {
+    redirectToFoodIngestion () {
+      this.$router.push('/patient/evaluation/foodIngestion')
+      console.log(this.patientEvaluation)
+    },
+    changeWeightStatus (position) {
+      this.weightStatus.forEach(element => {
+        element.active = false
+        element.classList = 'patient-option-btn'
+      })
+      this.weightStatus[position].active = true
+      this.weightStatus[position].classList = 'patient-option-btn active-btn'
+      this.patientEvaluation.weightStatus = this.weightStatus[position].value
+      if (position === 0) this.patientEvaluation.firstScreenValue = 1
+      else this.patientEvaluation.firstScreenValue = 0
+    },
+    verifyWeightStatus () {
+      if (this.patientEvaluation.weightStatus) {
+        this.weightStatus.forEach(element => {
+          if (element.value === this.patientEvaluation.weightStatus) {
+            element.active = true
+            element.classList = 'patient-option-btn active-btn'
+          }
+        })
       }
     }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    patientEvaluation () {
+      return this.$store.state.patientEvaluation
+    }
+  },
+  mounted () {
+    this.verifyWeightStatus()
   }
 }
 </script>

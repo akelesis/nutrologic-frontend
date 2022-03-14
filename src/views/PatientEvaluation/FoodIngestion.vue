@@ -3,7 +3,7 @@
     <Header headerStyle="TransparentHeader" />
     <main class="food-ingestion-container">
       <div class="food-ingestion-header">
-        <p>{{ patient.name }} - Auto Avaliação</p>
+        <p>{{ user.name }} - Auto Avaliação</p>
         <evaluation-breadcrumbs step="2" evalType="patient" stepsCounter="4" />
         <p>Peso</p>
       </div>
@@ -11,52 +11,52 @@
         <div class="food-ingestion-status-container">
           <p>Comparada com a minha alimentação habitual no último mês, eu tenho comido:</p>
           <div class="btn-container">
-            <button class="patient-option-btn active-btn">A mesma coisa</button>
-            <button class="patient-option-btn">Mais que o habitual</button>
-            <button class="patient-option-btn">Menos que o habitual</button>
+            <button @click="changeFeedStatus(0)" :class="feedStatus[0].classList">A mesma coisa</button>
+            <button @click="changeFeedStatus(1)" :class="feedStatus[1].classList">Mais que o habitual</button>
+            <button @click="changeFeedStatus(2)" :class="feedStatus[2].classList">Menos que o habitual</button>
           </div>
         </div>
-        <div class="food-quantity-container">
+        <div class="food-quantity-container" v-if="feedStatus[2].active">
           <p>Atualmente, eu estou comendo:</p>
           <div class="food-quantity-options">
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="same-less" :value="foodQuantity.sameLess" />
+                <input type="radio" name="food-amount" id="same-less" v-model="patientEvaluation.foodAmountValue" :value="foodQuantity.sameLess" />
                 <span class="radio-control"></span>
               </span>
               <label for="same-less">{{foodQuantity.sameLess}}</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="same-lesser" :value="foodQuantity.sameLesser" />
+                <input type="radio" name="food-amount" id="same-lesser" v-model="patientEvaluation.foodAmountValue" :value="foodQuantity.sameLesser" />
                 <span class="radio-control"></span>
               </span>
               <label for="same-lesser">{{foodQuantity.sameLesser}}</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="liquid" :value="foodQuantity.liquid" />
+                <input type="radio" name="food-amount" id="liquid" v-model="patientEvaluation.foodAmountValue" :value="foodQuantity.liquid" />
                 <span class="radio-control"></span>
               </span>
               <label for="liquid">{{foodQuantity.liquid}}</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="suplement" :value="foodQuantity.suplement" />
+                <input type="radio" name="food-amount" id="suplement" v-model="patientEvaluation.foodAmountValue" :value="foodQuantity.suplement" />
                 <span class="radio-control"></span>
               </span>
               <label for="suplement">{{foodQuantity.suplement}}</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="too-few" :value="foodQuantity.tooFew" />
+                <input type="radio" name="food-amount" id="too-few" v-model="patientEvaluation.foodAmountValue" :value="foodQuantity.tooFew" />
                 <span class="radio-control"></span>
               </span>
               <label for="too-few">{{foodQuantity.tooFew}}</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="probe" :value="foodQuantity.probe" />
+                <input type="radio" name="food-amount" id="probe" v-model="patientEvaluation.foodAmountValue" :value="foodQuantity.probe" />
                 <span class="radio-control"></span>
               </span>
               <label for="probe">{{foodQuantity.probe}}</label>
@@ -65,8 +65,8 @@
         </div>
       </div>
       <div class="btn-container">
-        <div class="next-page-btn">ANTERIOR</div>
-        <div class="next-page-btn">PRÓXIMO</div>
+        <div class="next-page-btn" @click="redirectToWeight">ANTERIOR</div>
+        <div class="next-page-btn" @click="redirectToSymptoms">PRÓXIMO</div>
       </div>
     </main>
     <main-footer :light="true"/>
@@ -81,9 +81,6 @@ export default {
   components: { Header, MainFooter, EvaluationBreadcrumbs },
   data () {
     return {
-      patient: {
-        name: 'João da Silva'
-      },
       foodQuantity: {
         sameLess: 'A mesma comida(sólida) em menor quantidade que o habitual',
         sameLesser: 'A mesma comida(sólida) em pouca quantidade',
@@ -91,8 +88,51 @@ export default {
         suplement: 'Apenas suplementos nutricionais',
         tooFew: 'Muito pouca quantidade de qualquer alimento',
         probe: 'Apenas alimentos por sonda ou pela veia'
+      },
+      feedStatus: [
+        { value: 'A mesma coisa', active: false, classList: 'patient-option-btn' },
+        { value: 'Mais que o habitual', active: false, classList: 'patient-option-btn' },
+        { value: 'Menos que o habitual', active: false, classList: 'patient-option-btn' }
+      ]
+    }
+  },
+  methods: {
+    redirectToWeight () {
+      this.$router.push('/patient/evaluation/weight')
+    },
+    redirectToSymptoms () {
+      this.$router.push('/patient/evaluation/symptoms')
+    },
+    changeFeedStatus (position) {
+      this.feedStatus.forEach(element => {
+        element.active = false
+        element.classList = 'patient-option-btn'
+      })
+      this.feedStatus[position].active = true
+      this.feedStatus[position].classList = 'patient-option-btn active-btn'
+      this.patientEvaluation.foodAmountStatus = this.feedStatus[position].value
+    },
+    verifyFeedStatus () {
+      if (this.patientEvaluation.foodAmountStatus) {
+        this.feedStatus.forEach(element => {
+          if (element.value === this.patientEvaluation.foodAmountStatus) {
+            element.active = true
+            element.classList = 'patient-option-btn active-btn'
+          }
+        })
       }
     }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    patientEvaluation () {
+      return this.$store.state.patientEvaluation
+    }
+  },
+  mounted () {
+    this.verifyFeedStatus()
   }
 }
 </script>
@@ -123,7 +163,7 @@ export default {
 }
 
 .food-ingestion-form {
-  margin-top: 30px;
+  margin: 30px 0;
   min-width: 50vw;
   display: flex;
   flex-direction: column;

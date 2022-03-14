@@ -4,7 +4,7 @@
     <main class="patients-evaluations-main">
       <div class="patients-evaluations-top-content">
         <div class="nutritionist-name-container">
-          <p>{{user.name}}</p>
+          <p>Dr(a). {{user.name}}</p>
         </div>
         <div class="patients-evaluations-container">
           <table class="patients-evaluations-table">
@@ -18,11 +18,11 @@
             </thead>
             <tbody>
               <tr v-for="evaluation in PatientEvaluations" :key="evaluation.id">
-                <td>{{evaluation.data}}</td>
-                <td>{{evaluation.horario}}</td>
-                <td>{{evaluation.nome}}</td>
-                <td>{{evaluation.nutricionista}}</td>
-                <td>{{evaluation.status}}</td>
+                <td>{{ evaluation.created_at.split('T')[0] | formatedDate }}</td>
+                <td>{{ evaluation.created_at.split('T')[1].split('.')[0] }}</td>
+                <td>{{evaluation.patient_name}}</td>
+                <td>{{evaluation.nutritionist_name || '-'}}</td>
+                <td>{{evaluation.evaluation_status}}</td>
                 <td class="action-buttons">
                   <i class="far fa-check-square"></i>
                   <i class="fas fa-search" @click="redirectPatientAutoEvalReport"></i>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import GreenButton from '../components/GreenButton.vue'
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
@@ -50,44 +51,36 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      },
-      PatientEvaluations: [
-        {
-          id: '1',
-          data: '01/08/2020',
-          horario: '13:35',
-          nome: 'Júlia Santana',
-          nutricionista: '-',
-          status: 'Pendente'
-        },
-        {
-          id: '2',
-          data: '01/08/2020',
-          horario: '13:53',
-          nome: 'Mario Alberto de Castro Gomes',
-          nutricionista: 'Dr. Gustavo Rocha',
-          status: 'Parcial'
-        },
-        {
-          id: '3',
-          data: '01/08/2020',
-          horario: '14:28',
-          nome: 'Amanda Meireles da Conceição',
-          nutricionista: '-',
-          status: 'Pendente'
-        }
-      ]
+      PatientEvaluations: []
+    }
+  },
+  filters: {
+    formatedDate (date) {
+      const splitDate = date.split('-')
+      return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
     }
   },
   methods: {
+    async getOpenEvaluations () {
+      this.PatientEvaluations = await axios.get('http://localhost:4000/evaluation')
+        .then(res => res.data)
+        .catch(err => console.log(err))
+    },
     redirectNutritionistDashboard () {
       this.$router.push('/nutritionist/dashboard')
     },
     redirectPatientAutoEvalReport () {
       this.$router.push('/nutritionist/patientAutoEvalReport')
     }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    }
+  },
+  mounted () {
+    this.getOpenEvaluations()
+    console.log(this.PatientEvaluations)
   }
 }
 </script>

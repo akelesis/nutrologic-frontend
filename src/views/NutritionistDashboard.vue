@@ -20,19 +20,17 @@ export default {
     Header,
     MainFooter
   },
-  data () {
-    return {
-      user: {
-        name: 'João Carlos'
-      }
-    }
-  },
   methods: {
     redirectPatientsEvaluations () {
       this.$router.push('/nutritionist/patientsEvaluations')
     },
     redirectSearchPatients () {
       this.$router.push('/nutritionist/searchPatients')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   }
 }

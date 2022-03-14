@@ -31,7 +31,7 @@ const routes = [
     component: () => import('../views/EvaluationHistory.vue')
   },
   {
-    path: '/patient/evaluationResult',
+    path: '/patient/evaluationResult/:eval_id',
     name: 'PatientEvaluationResult',
     component: () => import('../views/PatientEvaluationResult.vue')
   },

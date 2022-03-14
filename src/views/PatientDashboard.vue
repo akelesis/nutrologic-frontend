@@ -13,6 +13,7 @@
 </template>
 
 <script>
+/* import axios from 'axios' */
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
 export default {
@@ -21,11 +22,7 @@ export default {
     MainFooter
   },
   data () {
-    return {
-      user: {
-        name: 'João Carlos'
-      }
-    }
+    return {}
   },
   methods: {
     redirectEvaluationHistory () {
@@ -33,6 +30,11 @@ export default {
     },
     redirectEvaluation () {
       this.$router.push('/patient/evaluation/weight')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   }
 }

@@ -11,21 +11,22 @@
           <th>Categoria</th>
         </thead>
         <tbody>
-          <tr v-for="evaluation in evaluationHistory" :key="evaluation.id" @click="redirectToResult(evaluation.id)">
-            <td>{{ evaluation.date }}</td>
-            <td>{{ evaluation.nutritionist }}</td>
+          <tr v-for="evaluation in evaluationHistory" :key="evaluation.id" @click="redirectToResult(evaluation.evaluation_id)">
+            <td>{{ evaluation.created_at.split('T')[0] | formatedDate }}</td>
+            <td>{{ evaluation.nutritionist || 'Não definido' }}</td>
             <td>{{ evaluation.evaluation_status }}</td>
-            <td>{{ evaluation.category }}</td>
+            <td>{{ evaluation.category || 'Não definido'}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <blue-back-button />
+    <blue-back-button @click.native="redirectToDashboard" />
     <main-footer :light="true" />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import BlueBackButton from '../components/BlueBackButton.vue'
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
@@ -33,29 +34,39 @@ export default {
   components: { Header, MainFooter, BlueBackButton },
   data () {
     return {
-      evaluationHistory: [
-        {
-          id: 'xyz',
-          date: '2021-08-20',
-          nutritionist: 'Marcelo Castro',
-          evaluation_status: 'em andamento',
-          category: 'indefinido'
-        },
-        {
-          id: 'yzx',
-          date: '2021-07-15',
-          nutritionist: 'Cristina Brito',
-          evaluation_status: 'concluido',
-          category: 'B'
-        }
-      ]
+      evaluationHistory: []
+    }
+  },
+  filters: {
+    formatedDate (date) {
+      const splitDate = date.split('-')
+      return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
     }
   },
   methods: {
     redirectToResult (evaluationId) {
-      this.$router.push('/patient/evaluationResult')
-      console.log(evaluationId)
+      this.$router.push(`/patient/evaluationResult/${evaluationId}`)
+    },
+    redirectToDashboard () {
+      this.$router.push('/patient/dashboard')
+    },
+    async getEvaluations () {
+      try {
+        this.evaluationHistory = await axios.get(`http://localhost:4000/patientHistory/${this.user.id}`)
+          .then(res => res.data)
+        console.log(this.evaluationHistory)
+      } catch (err) {
+        console.log(err)
+      }
     }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    }
+  },
+  mounted () {
+    this.getEvaluations()
   }
 }
 </script>

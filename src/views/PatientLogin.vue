@@ -2,6 +2,7 @@
   <div class="PatientLogin">
     <Header headerStyle="TransparentHeader" />
     <main class="login-form-container">
+      <div class="error-alert" v-if="error.length > 0"><span>{{error}}</span></div>
       <div class="login-form-header">
         <h1>LOGIN</h1>
         <small>
@@ -10,10 +11,10 @@
         </small>
       </div>
       <div class="input-group">
-        <input type="text" placeholder="Usuário" />
-        <input type="password" placeholder="Senha" />
+        <input type="text" placeholder="Usuário" v-model="login.patient_nickname" />
+        <input type="password" placeholder="Senha" v-model="login.patient_password" />
       </div>
-      <button class="patient-login-btn" @click="login">ENTRAR</button>
+      <button class="patient-login-btn" @click="signin">ENTRAR</button>
       <router-link to="/patientRegister">PRIMEIRO ACESSO</router-link>
     </main>
     <MainFooter :light="true" />
@@ -23,11 +24,27 @@
 <script>
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
+import axios from 'axios'
 export default {
   components: { Header, MainFooter },
+  data () {
+    return {
+      login: {},
+      error: ''
+    }
+  },
   methods: {
-    login () {
-      this.$router.push('/patient/dashboard')
+    signin () {
+      axios.post('http://localhost:4000/patient/signin', this.login)
+        .then((res) => {
+          this.$store.commit('setUser', res.data)
+          localStorage.setItem('__nutrologic_user_info', JSON.stringify(res.data))
+          this.$router.push('/patient/dashboard')
+        })
+        .catch((err) => {
+          console.log(err)
+          this.error = err.response.data.msg
+        })
     }
   }
 }
@@ -46,6 +63,25 @@ export default {
   background-image: linear-gradient(to bottom, #43e8ff, #43e8ff, #5dadb8);
   background-size: 100% 300%;
   animation: gentleMove 3s infinite alternate;
+}
+
+.error-alert {
+  background-color: #e6504b;
+  padding: 5px 0;
+  box-shadow: 3px 3px 10px #555;
+  height: 30px;
+  animation-name: alertShowUp;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  font-size: 1em;
+}
+
+.error-alert span {
+  width: 90%;
+  height: 30px;
+  animation-name: textShowUp;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 
 .login-form-container {
@@ -125,4 +161,28 @@ export default {
     background-position: bottom left;
   }
 }
+
+@keyframes alertShowUp {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@keyframes textShowUp {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 </style>
