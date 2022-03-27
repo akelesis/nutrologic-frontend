@@ -19,13 +19,13 @@
             <tbody>
               <tr v-for="evaluation in PatientEvaluations" :key="evaluation.id">
                 <td>{{ evaluation.created_at.split('T')[0] | formatedDate }}</td>
-                <td>{{ evaluation.created_at.split('T')[1].split('.')[0] }}</td>
+                <td>{{ evaluation.created_at.split('T')[1] | formatedTime }}</td>
                 <td>{{evaluation.patient_name}}</td>
                 <td>{{evaluation.nutritionist_name || '-'}}</td>
                 <td>{{evaluation.evaluation_status}}</td>
                 <td class="action-buttons">
-                  <i class="far fa-check-square"></i>
-                  <i class="fas fa-search" @click="redirectPatientAutoEvalReport"></i>
+                  <i class="far fa-check-square" v-if="evaluation.evaluation_status != 'em andamento'"></i>
+                  <i class="fas fa-search" @click="redirectPatientAutoEvalReport(evaluation)"></i>
                 </td>
               </tr>
             </tbody>
@@ -58,19 +58,25 @@ export default {
     formatedDate (date) {
       const splitDate = date.split('-')
       return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
+    },
+    formatedTime (UTCTime) {
+      const hoursMinutesSeconds = UTCTime.split('.')[0]
+      const splitTime = hoursMinutesSeconds.split(':')
+      return `${splitTime[0]}:${splitTime[1]}`
     }
   },
   methods: {
     async getOpenEvaluations () {
-      this.PatientEvaluations = await axios.get('http://localhost:4000/evaluation')
+      this.PatientEvaluations = await axios.get('http://localhost:4000/evaluation?')
         .then(res => res.data)
         .catch(err => console.log(err))
     },
     redirectNutritionistDashboard () {
       this.$router.push('/nutritionist/dashboard')
     },
-    redirectPatientAutoEvalReport () {
-      this.$router.push('/nutritionist/patientAutoEvalReport')
+    redirectPatientAutoEvalReport (evaluation) {
+      this.$router.push(`/nutritionist/patientAutoEvalReport?
+        patient=${evaluation.patient_id}&patient_evaluation=${evaluation.patient_evaluation_id}`)
     }
   },
   computed: {

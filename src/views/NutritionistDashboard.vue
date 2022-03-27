@@ -26,7 +26,16 @@ export default {
     },
     redirectSearchPatients () {
       this.$router.push('/nutritionist/searchPatients')
+    },
+    placeUserInGlobalStorage () {
+      if (localStorage.getItem('__nutrologic_user_info')) {
+        const user = JSON.parse(localStorage.getItem('__nutrologic_user_info'))
+        this.$store.commit('setUser', user)
+      }
     }
+  },
+  mounted () {
+    this.placeUserInGlobalStorage()
   },
   computed: {
     user () {

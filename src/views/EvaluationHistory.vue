@@ -58,6 +58,12 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    placeUserInGlobalStorage () {
+      if (localStorage.getItem('__nutrologic_user_info')) {
+        const user = JSON.parse(localStorage.getItem('__nutrologic_user_info'))
+        this.$store.commit('setUser', user)
+      }
     }
   },
   computed: {
@@ -66,6 +72,7 @@ export default {
     }
   },
   mounted () {
+    this.placeUserInGlobalStorage()
     this.getEvaluations()
   }
 }

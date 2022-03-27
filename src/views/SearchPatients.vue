@@ -7,8 +7,8 @@
           <p>{{user.name}}</p>
         </div>
         <div class="search-input-container">
-          <input type="text" placeholder="Pesquisar"/>
-          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Pesquisar" v-model="searchTerm" />
+          <i class="fas fa-search" @click="findPatient"></i>
         </div>
         <div class="search-patients-container">
           <table class="search-patients-table">
@@ -18,9 +18,12 @@
               <th>Ações</th>
             </thead>
             <tbody>
-              <tr v-for="evaluation in PatientEvaluations" :key="evaluation.id">
-                <td>{{evaluation.data}}</td>
-                <td>{{evaluation.nome}}</td>
+              <tr v-for="patient in patients" :key="patient.patient_id">
+                <td>
+                  {{ patient.created_at.split('T')[0] | formatedDate }} às
+                  {{ patient.created_at.split('T')[1] | formatedTime }}
+                </td>
+                <td>{{patient.patient_name}}</td>
                 <td class="action-button">
                   <i class="fas fa-search"></i>
                 </td>
@@ -36,6 +39,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import GreenButton from '../components/GreenButton.vue'
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
@@ -47,26 +51,8 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      },
-      PatientEvaluations: [
-        {
-          id: '1',
-          data: '01/08/2020',
-          nome: 'Júlia Santana'
-        },
-        {
-          id: '2',
-          data: '01/08/2020',
-          nome: 'Mario Alberto de Castro Gomes'
-        },
-        {
-          id: '3',
-          data: '01/08/2020',
-          nome: 'Amanda Meireles da Conceição'
-        }
-      ]
+      searchTerm: '',
+      patients: []
     }
   },
   methods: {
@@ -75,6 +61,30 @@ export default {
     },
     redirectPatientsEvaluations () {
       this.$router.push('/nutritionist/patientsEvaluations')
+    },
+    async findPatient () {
+      try {
+        this.patients = await axios.get(`http://localhost:4000/patientEval/patient/${this.searchTerm}`)
+          .then(res => res.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  },
+  filters: {
+    formatedDate (date) {
+      const splitDate = date.split('-')
+      return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
+    },
+    formatedTime (UTCTime) {
+      const hoursMinutesSeconds = UTCTime.split('.')[0]
+      const splitTime = hoursMinutesSeconds.split(':')
+      return `${splitTime[0]}:${splitTime[1]}`
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   }
 }

@@ -4,25 +4,25 @@
     <main class="patients-evaluations-main">
       <div class="patients-evaluations-top-content">
         <div class="nutritionist-name-container">
-          <p>{{ user.name }}</p>
+          <p>Dr(a). {{ user.name }}</p>
         </div>
         <div class="patient-report-container">
-          <h1>{{ PatientInfo.patient_name }} - {{ PatientInfo.created_at }}</h1>
+          <h1>{{ patientInfo.patient_name }} - {{ evaluationInfo.created_at.split('T')[0] | formatedDate }}</h1>
           <div class="patient-report-info">
             <div class="patient-info">
               <h2 class="info-title">Peso</h2>
               <p>
-                <span>Peso atual: {{ PatientInfo.weight }} Kg</span>
-                <span>Peso do mês anterior: {{ PatientInfo.last_month_weight }} Kg</span>
+                <span>Peso atual: {{ evaluationInfo.current_weight }} Kg</span>
+                <span>Peso do mês anterior: {{ evaluationInfo.last_month_weight }} Kg</span>
               </p>
               <p>
-                <span>Altura: {{ PatientInfo.height }} m</span>
-                <span>Peso seis mêses atrás: {{ PatientInfo.last_semester_weight }} Kg</span>
+                <span>Altura: {{ evaluationInfo.height }} m</span>
+                <span>Peso seis mêses atrás: {{ evaluationInfo.last_semester_weight }} Kg</span>
               </p>
             </div>
             <div class="patient-info">
               <h2 class="info-title">Ingestão Alimentar</h2>
-              <span>{{ PatientInfo.food_amount_value }}</span>
+              <span>{{ evaluationInfo.food_amount_value }}</span>
             </div>
           </div>
           <div class="patient-report-info">
@@ -34,7 +34,7 @@
             </div>
             <div class="patient-info">
               <h2 class="info-title">Atividade e Função</h2>
-              <span>{{ PatientInfo.function_value }}</span>
+              <span>{{ evaluationInfo.function_status }}</span>
             </div>
           </div>
         </div>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import GreenButton from '../components/GreenButton.vue'
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
@@ -60,65 +61,72 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      },
       processedSymptoms: '',
-      PatientInfo: {
-        patient_name: 'Julia Santana',
-        created_at: '01/08/2020',
-        weight: '65',
-        last_month_weight: '66',
-        last_semester_weight: '68',
-        height: '1.65',
-        food_amount_value: 'Estou comendo: A mesma comida(sólida) em menor quantidade que o habitual',
-        function_value: 'Normal, sem nenhuma limitação',
-        symptoms: ['Vômitos', 'Náuseas']
-      },
-      PatientEvaluations: [
-        {
-          id: '1',
-          data: '01/08/2020',
-          horario: '13:35',
-          nome: 'Júlia Santana',
-          nutricionista: '-',
-          status: 'Pendente'
-        },
-        {
-          id: '2',
-          data: '01/08/2020',
-          horario: '13:53',
-          nome: 'Mario Alberto de Castro Gomes',
-          nutricionista: 'Dr. Gustavo Rocha',
-          status: 'Parcial'
-        },
-        {
-          id: '3',
-          data: '01/08/2020',
-          horario: '14:28',
-          nome: 'Amanda Meireles da Conceição',
-          nutricionista: '-',
-          status: 'Pendente'
-        }
-      ]
+      patientInfo: {},
+      evaluationInfo: {}
+    }
+  },
+  filters: {
+    formatedDate (date) {
+      const splitDate = date.split('-')
+      return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
     }
   },
   methods: {
     symptomsToString () {
-      for (let i = 0; i < this.PatientInfo.symptoms.length; i++) {
-        if (i < this.PatientInfo.symptoms.length - 1) {
-          this.processedSymptoms += this.PatientInfo.symptoms[i] + ', '
-        } else {
-          this.processedSymptoms += this.PatientInfo.symptoms[i]
+      console.log(this.evaluationInfo)
+      console.log('Teste')
+      if (this.evaluationInfo) {
+        for (let i = 0; i < this.evaluationInfo.symptoms.length; i++) {
+          if (i < this.evaluationInfo.symptoms.length - 1) {
+            this.processedSymptoms += this.evaluationInfo.symptoms[i].symptom_name +
+              (this.evaluationInfo.symptoms[i].symptom_detail ? ' (' +
+              this.evaluationInfo.symptoms[i].symptom_detail + ')' : '') + ', '
+          } else {
+            this.processedSymptoms += this.evaluationInfo.symptoms[i].symptom_name
+          }
         }
       }
     },
     redirectNutritionistDashboard () {
       this.$router.push('/nutritionist/patientsEvaluations')
+    },
+    async getPatientInfo () {
+      const patientId = this.$route.query.patient
+      try {
+        this.patientInfo = await axios.get(`http://localhost:4000/patient/${patientId}`)
+          .then(res => res.data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async getPatientEvaluationInfo () {
+      const patientEvalId = this.$route.query.patient_evaluation
+      try {
+        this.evaluationInfo = await axios.get(`http://localhost:4000/patientEval/${patientEvalId}`)
+          .then(res => res.data)
+
+        if (this.evaluationInfo) this.symptomsToString()
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    placeUserInGlobalStorage () {
+      if (localStorage.getItem('__nutrologic_user_info')) {
+        const user = JSON.parse(localStorage.getItem('__nutrologic_user_info'))
+        this.$store.commit('setUser', user)
+      }
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   },
   mounted () {
-    this.symptomsToString()
+    this.placeUserInGlobalStorage()
+    this.getPatientInfo()
+    this.getPatientEvaluationInfo()
   }
 }
 </script>
