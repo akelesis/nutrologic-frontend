@@ -6,10 +6,10 @@
         <h1>LOGIN</h1>
       </div>
       <div class="input-group">
-        <input type="text" placeholder="Usuário" />
-        <input type="password" placeholder="Senha" />
+        <input type="text" placeholder="Usuário" v-model="login.nutritionist_email" />
+        <input type="password" placeholder="Senha" v-model="login.nutritionist_password" />
       </div>
-      <button class="patient-login-btn" @click="login">ENTRAR</button>
+      <button class="patient-login-btn" @click="signin">ENTRAR</button>
     </main>
     <MainFooter />
   </div>
@@ -18,11 +18,26 @@
 <script>
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
+import axios from 'axios'
 export default {
   components: { Header, MainFooter },
+  data () {
+    return {
+      login: {}
+    }
+  },
   methods: {
-    login () {
-      this.$router.push('/nutritionist/dashboard')
+    signin () {
+      axios.post('http://localhost:4000/nutritionist/signin', this.login)
+        .then((res) => {
+          this.$store.commit('setUser', res.data)
+          localStorage.setItem('__nutrologic_user_info', JSON.stringify(res.data))
+          this.$router.push('/nutritionist/dashboard')
+        })
+        .catch((err) => {
+          console.log({ ...err })
+          this.error = err.response.data.msg
+        })
     }
   }
 }

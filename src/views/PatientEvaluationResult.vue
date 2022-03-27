@@ -4,36 +4,85 @@
       <main class="patient-result">
         <div class="head-information">
           <h2>Histórico de avaliações</h2>
-          <p>Júlia Santana - 12/05/2021</p>
+          <p>
+            {{user.name}} -
+            {{ patientEval.created_at.split('T')[0] | formatedDate }} -
+            {{patientEval.created_at.split('T')[1].split('.')[0]}}
+          </p>
         </div>
         <div class="diagnosis-info">
-          <div class="diagnosis">
-            <p>DIAGNÓSTICO</p>
-            <hr class="eval-result-hr" />
-            <p>Não definido</p>
-          </div>
           <div class="nutritional-orientation">
             <p>ORIENTAÇÃO NUTRICIONAL</p>
             <hr class="eval-result-hr" />
-            <p>Não definido</p>
+            <div class="nutrition-info">
+              <p><strong>Suplementação:</strong> {{ patientEval.supplementation || 'Não definido' }}</p>
+              <p><strong>Tipo de Suplementação:</strong> {{ patientEval.type_supplementation || 'Não definido' }}</p>
+              <p><strong>Proteina:</strong> {{ patientEval.protein || 'Não definido' }}</p>
+              <p><strong>Calorias:</strong> {{ patientEval.calories || 'Não definido' }}</p>
+              <p><strong>Ômega Três:</strong> {{ patientEval.omega_three || 'Não definido' }}</p>
+              <p><strong>Outras Orientações:</strong> {{ patientEval.other_guidelines || 'Não definido' }}</p>
+            </div>
           </div>
         </div>
-        <div class="erase-unfinished-evaluation">
+        <div class="erase-unfinished-evaluation" v-if="patientEval.evaluation_status == 'em espera'">
           <p>Esta avaliação ainda não foi aberta pelo nutricionista, deseja apagá-la?</p>
-          <button class="erase-btn">Sim</button>
+          <button class="erase-btn" @click="deleteEvaluation">Sim</button>
         </div>
-        <blue-back-button class="back-button"/>
+        <blue-back-button class="back-button" @click.native="returnToHistory"/>
       </main>
       <main-footer :light="true" />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import BlueBackButton from '../components/BlueBackButton.vue'
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
+import { baseUrl } from '../global'
 export default {
-  components: { Header, MainFooter, BlueBackButton }
+  components: { Header, MainFooter, BlueBackButton },
+  data () {
+    return {
+      patientEval: {}
+    }
+  },
+  methods: {
+    async getPatientEvaluation () {
+      try {
+        this.patientEval = await axios.get(`${baseUrl}/patient/evaluation/${this.$route.params.eval_id}`)
+          .then(res => res.data[0])
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async deleteEvaluation () {
+      try {
+        await axios.put(`${baseUrl}/evaluation/${this.$route.params.eval_id}`, { evaluation_status: 'inativa' })
+        this.$router.push('/patient/evaluationHistory')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    returnToHistory () {
+      this.$router.push('/patient/evaluationHistory')
+    }
+  },
+  filters: {
+    formatedDate (date) {
+      const splitDate = date.split('-')
+      return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    }
+  },
+  mounted () {
+    this.getPatientEvaluation()
+  }
+
 }
 </script>
 
@@ -91,6 +140,12 @@ export default {
   height: 3px;
   background-color: #fff;
   margin: 10px 0;
+}
+
+.nutrition-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .erase-unfinished-evaluation {

@@ -1,18 +1,30 @@
 <template>
-  <div class="EvaluationBreadcrumbs">
+  <div :style="cssVars" class="EvaluationBreadcrumbs">
     <div class="dot" :class="step > 0 ? 'active' : ''"></div>
-    <div class="dash" :class="step > 1 ? 'active' : ''"></div>
-    <div class="dot" :class="step > 1  ? 'active' : ''"></div>
-    <div class="dash" :class="step > 2  ? 'active' : ''"></div>
-    <div class="dot" :class="step > 2  ? 'active' : ''"></div>
-    <div class="dash" :class="step > 3  ? 'active' : ''"></div>
-    <div class="dot" :class="step > 3  ? 'active' : ''"></div>
+    <span v-for="n in stepsCounter-1" :key="n" class="EvaluationBreadcrumbs">
+      <div class="dash" :class="step > n ? 'active' : ''"></div>
+      <div class="dot" :class="step > n ? 'active' : ''"></div>
+    </span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['step']
+  props: ['step', 'evalType', 'stepsCounter'],
+  computed: {
+    cssVars () {
+      return {
+        '--color': this.evalType === 'patient' ? '#9feeff' : '#58E28F',
+        '--box-shadow': this.evalType === 'patient' ? '#fff' : '#58E28F'
+      }
+    },
+    dotCounter () {
+      return this.stepsCounter
+    },
+    dashCounter () {
+      return this.stepsCounter - 1
+    }
+  }
 }
 </script>
 
@@ -39,7 +51,7 @@ export default {
 }
 
 .active {
-  background-color: #9feeff;
-  box-shadow: 0 0 10px #fff;
+  background-color: var(--color);
+  box-shadow: 0 0 10px var(--box-shadow);
 }
 </style>

@@ -3,8 +3,8 @@
       <Header headerStyle="TransparentHeader"/>
       <main class="activities-container">
         <div class="activities-header">
-          <p>{{ patient.name }} - Auto Avaliação</p>
-          <evaluation-breadcrumbs step="4" />
+          <p>{{ user.name }} - Auto Avaliação</p>
+          <evaluation-breadcrumbs step="4" evalType="patient" stepsCounter="4"/>
           <p>Atividade e Função</p>
         </div>
         <div class="activities-body">
@@ -12,35 +12,35 @@
           <div class="activity-options">
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="normal" value="Normal, sem nenhuma limitação" />
+                <input type="radio" v-model="patientEvaluation.function_status" name="food-amount" id="normal" value="Normal, sem nenhuma limitação" />
                 <span class="radio-control"></span>
               </span>
               <label for="normal">Normal, sem nenhuma limitação</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="not-normal" value="Não totalmente normal, mas capaz de manter quase todas as atividades normais" />
+                <input type="radio" v-model="patientEvaluation.function_status" name="food-amount" id="not-normal" value="Não totalmente normal, mas capaz de manter quase todas as atividades normais" />
                 <span class="radio-control"></span>
               </span>
               <label for="not-normal">Não totalmente normal, mas capaz de manter quase todas as atividades normais</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="no-energy" value="Sem disposição para a maioria das coisas mas ficando na cama ou na cadeira menos da metade do dia" />
+                <input type="radio" v-model="patientEvaluation.function_status" name="food-amount" id="no-energy" value="Sem disposição para a maioria das coisas mas ficando na cama ou na cadeira menos da metade do dia" />
                 <span class="radio-control"></span>
               </span>
               <label for="no-energy">Sem disposição para a maioria das coisas mas ficando na cama ou na cadeira menos da metade do dia</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="too-few-capability" value="Capaz de fazer pouca atividade e passando maior parte do dia na cadeira ou na cama" />
+                <input type="radio" v-model="patientEvaluation.function_status" name="food-amount" id="too-few-capability" value="Capaz de fazer pouca atividade e passando maior parte do dia na cadeira ou na cama" />
                 <span class="radio-control"></span>
               </span>
               <label for="too-few-capability">Capaz de fazer pouca atividade e passando maior parte do dia na cadeira ou na cama</label>
             </div>
             <div class="option-group">
               <span class="radio-input">
-                <input type="radio" name="food-amount" id="in-bed" value="Praticamente acamado, raramente fora da cama" />
+                <input type="radio" v-model="patientEvaluation.function_status" name="food-amount" id="in-bed" value="Praticamente acamado, raramente fora da cama" />
                 <span class="radio-control"></span>
               </span>
               <label for="in-bed">Praticamente acamado, raramente fora da cama</label>
@@ -48,8 +48,8 @@
           </div>
         </div>
         <div class="btn-container">
-          <div class="next-page-btn">ANTERIOR</div>
-          <div class="next-page-btn">FINALIZAR</div>
+          <div class="next-page-btn" @click="redirectSymptoms">ANTERIOR</div>
+          <div class="next-page-btn" @click="finishEvaluation">FINALIZAR</div>
         </div>
       </main>
       <main-footer :light="true" />
@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { baseUrl } from '../../global'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
@@ -64,10 +66,78 @@ export default {
   components: { Header, MainFooter, EvaluationBreadcrumbs },
   data () {
     return {
-      patient: {
-        name: 'João da Silva'
+      patientEval: {},
+      patientSymptoms: []
+    }
+  },
+  methods: {
+    divideData () {
+      this.patientEval.patient_id = this.user.id
+      this.patientEval.current_weight = this.patientEvaluation.currentWeight
+      this.patientEval.last_month_weight = this.patientEvaluation.oneMonthWeight
+      this.patientEval.last_semester_weight = this.patientEvaluation.sixMonthsWeight
+      this.patientEval.height = this.patientEvaluation.sizeMeters + '.' + this.patientEvaluation.sizeCentimeters
+      this.patientEval.first_screen_value = 0
+      this.patientEval.weight_gain_status = this.patientEvaluation.weightStatus
+      this.patientEval.weight_gain_value = 0
+      this.patientEval.food_amount_status = this.patientEvaluation.foodAmountStatus
+      this.patientEval.food_amount_value = this.patientEvaluation.foodAmountValue
+      this.patientEval.second_screen_value = 0
+      this.patientEval.third_screen_value = 0
+      this.patientEval.function_status = this.patientEvaluation.function_status
+      this.patientEval.function_value = 0
+      this.patientEval.fourth_screen_value = 0
+      this.patientSymptoms = this.patientEvaluation.activeSymptoms
+      const indexPain = this.patientEvaluation.activeSymptoms.indexOf('Dor')
+      const indexOther = this.patientEvaluation.activeSymptoms.indexOf('Outros')
+      if (indexPain !== -1) {
+        this.patientSymptoms[indexPain].symptom_detail = this.patientEvaluation.painDetails
+      }
+      if (indexOther !== -1) {
+        this.patientSymptoms[indexOther].symptom_detail = this.patientEvaluation.otherDetails
+      }
+    },
+    sendPatientEvalToDatabase () {
+      return axios.post(`${baseUrl}/patientEval`, this.patientEval)
+    },
+    sendPatientSymptomsToDatabase (patientEvaluation) {
+      console.log(this.patientSymptoms)
+      return axios.post(`${baseUrl}/symptomByPatient`, { symptoms: this.patientSymptoms, evaluation: patientEvaluation })
+    },
+    createEvaluation (patientEvaluationId) {
+      return axios.post(`${baseUrl}/evaluation`, { patient_evaluation_id: patientEvaluationId })
+    },
+    redirectSymptoms () {
+      this.$router.push('/patient/evaluation/symptoms')
+    },
+    redirectToPatientHome () {
+      this.$router.push('/patient/dashboard')
+    },
+    async finishEvaluation () {
+      this.divideData()
+      try {
+        const patientEvalRes = await this.sendPatientEvalToDatabase()
+        const patientSymptomsRes = await this.sendPatientSymptomsToDatabase(patientEvalRes.data.patient_evaluation_id)
+        const evalRes = await this.createEvaluation(patientEvalRes.data.patient_evaluation_id)
+        if (patientEvalRes && patientSymptomsRes && evalRes) {
+          alert('Avaliação Salva com sucesso!')
+          this.redirectToPatientHome()
+        }
+      } catch (err) {
+        console.log({ ...err })
       }
     }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    patientEvaluation () {
+      return this.$store.state.patientEvaluation
+    }
+  },
+  mounted () {
+    console.log(this.patientEvaluation)
   }
 
 }

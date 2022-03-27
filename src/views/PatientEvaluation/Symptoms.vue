@@ -3,19 +3,35 @@
     <Header headerStyle="TransparentHeader" />
     <main class="symptoms-container">
       <div class="symptoms-header">
-        <p>{{ patient.name }} - Auto Avaliação</p>
-        <evaluation-breadcrumbs step="3" />
+        <p>{{ user.name }} - Auto Avaliação</p>
+        <evaluation-breadcrumbs step="3" evalType="patient" stepsCounter="4" />
         <p class="page-title">Sintomas</p>
       </div>
       <div class="symptoms-container">
         <p>Durante as últimas duas semanas eu tenho tido os seguintes problemas que me impedem de comer o suficiente (marque todos os que tiver sentindo):</p>
         <div class="symptoms-grid">
-          <symptom-button class="symptom-btn" v-for="symptom in symptoms" :key="symptom.description" :label="symptom.description" :status="symptom.status" />
+          <symptom-button
+            class="symptom-btn"
+            :class="symptom.classList"
+            v-for="symptom in symptoms"
+            :key="symptom.symptom_name"
+            :label="symptom.symptom_name"
+            :status="symptom.status"
+            @click.native="toggleSymptom(symptom)"
+          />
+        </div>
+        <div class="pain-especification" v-if="patientEvaluation.activeSymptoms.find(symptom => symptom.symptom_name === 'Dor')">
+          <label for="pain-input">Especifique o local da dor: </label>
+          <input id='pain-input' type="text" v-model="patientEvaluation.painDetails">
+        </div>
+        <div class="other-especification" v-if="patientEvaluation.activeSymptoms.find(symptom => symptom.symptom_name === 'Outros')">
+          <label for="other-input">Especifique o(s) sintoma(s) que não está(ão) listado(s): </label>
+          <input id="other-input" type="text" v-model="patientEvaluation.otherDetails">
         </div>
       </div>
       <div class="btn-container">
-        <div class="next-page-btn">ANTERIOR</div>
-        <div class="next-page-btn">PRÓXIMO</div>
+        <div class="next-page-btn" @click="redirectToFoodIngestion">ANTERIOR</div>
+        <div class="next-page-btn" @click="redirectToActivities">PRÓXIMO</div>
       </div>
     </main>
     <MainFooter :light="true" />
@@ -27,6 +43,8 @@ import Header from '../../components/Header.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import SymptomButton from '../../components/SymptomButton.vue'
+import axios from 'axios'
+import { baseUrl } from '../../global'
 export default {
   components: {
     Header,
@@ -36,87 +54,65 @@ export default {
   },
   data () {
     return {
-      patient: {
-        name: 'José Silva'
-      },
-      symptoms: [
-        {
-          description: 'Sem problemas para me alimentar',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Vômitos',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Sem apetite, apenas sem vontade de comer',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Náuseas',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Boca seca',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Obstipação (Intestino preso)',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Os cheiros me incomodam',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Feridas na boca',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Me sinto rapidamente satisfeito',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Dor',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Coisas tem gosto estranho ou não tem gosto',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Cansaço, fadiga',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Problemas para engolir',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Diarréia',
-          status: 'inactive',
-          score: 0
-        },
-        {
-          description: 'Outros',
-          status: 'inactive',
-          score: 0
-        }
-      ]
+      symptoms: []
     }
+  },
+  methods: {
+    redirectToFoodIngestion () {
+      this.$router.push('/patient/evaluation/foodIngestion')
+    },
+    redirectToActivities () {
+      console.log(this.patientEvaluation)
+      this.$router.push('/patient/evaluation/activities')
+    },
+    getSymptoms () {
+      axios.get(`${baseUrl}/symptom`)
+        .then(res => {
+          this.symptoms = res.data
+        })
+        .catch(err => { console.log(err.response.data) })
+    },
+    toggleSymptom (symptom) {
+      if (this.patientEvaluation.activeSymptoms.find(activeSymptom => activeSymptom.symptom_name === symptom.symptom_name)) {
+        this.removeFromActiveSymptoms(symptom)
+      } else {
+        this.addToActiveSymptoms(symptom)
+      }
+      this.$forceUpdate()
+    },
+    addToActiveSymptoms (symptom) {
+      symptom.classList = 'active'
+      this.patientEvaluation.activeSymptoms.push(symptom)
+    },
+    removeFromActiveSymptoms (symptom) {
+      symptom.classList = ''
+      this.patientEvaluation.activeSymptoms = this.patientEvaluation.activeSymptoms.filter(element => element.symptom_name !== symptom.symptom_name)
+    },
+    verifyActiveSymptoms () {
+      this.symptoms.forEach(symptom => {
+        for (let i = 0; i < this.patientEvaluation.activeSymptoms.length; i++) {
+          if (this.patientEvaluation.activeSymptoms[i].symptom_name === symptom.symptom_name) {
+            symptom.classList = 'active'
+          }
+        }
+        this.$forceUpdate()
+      })
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    patientEvaluation () {
+      return this.$store.state.patientEvaluation
+    }
+  },
+  mounted () {
+    this.getSymptoms()
+    if (!this.patientEvaluation.activeSymptoms) this.patientEvaluation.activeSymptoms = []
+    setTimeout(() => {
+      this.verifyActiveSymptoms()
+    }, 300)
   }
 }
 </script>
@@ -177,6 +173,25 @@ export default {
 
 .next-page-btn:hover {
   box-shadow: 0 0 1px #0004;
+}
+
+.active {
+  background-color: #29ABC8;
+  box-shadow: 0 0 10px #fff;
+}
+
+.pain-especification, .other-especification {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.pain-especification input, .other-especification input {
+  outline: none;
+  background-color: #0000;
+  border: none;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  font-size: 18px;
 }
 
 </style>

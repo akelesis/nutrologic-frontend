@@ -5,7 +5,7 @@
       <p>Olá {{user.name}}!</p>
       <div class="options-container">
         <button class="open-evaluation" @click="redirectPatientsEvaluations">AUTO AVALIAÇÕES ABERTAS</button>
-        <button class="search-patient">PESQUISAR PACIENTE</button>
+        <button class="search-patient" @click="redirectSearchPatients">PESQUISAR PACIENTE</button>
       </div>
     </main>
     <main-footer />
@@ -20,16 +20,26 @@ export default {
     Header,
     MainFooter
   },
-  data () {
-    return {
-      user: {
-        name: 'João Carlos'
-      }
-    }
-  },
   methods: {
     redirectPatientsEvaluations () {
       this.$router.push('/nutritionist/patientsEvaluations')
+    },
+    redirectSearchPatients () {
+      this.$router.push('/nutritionist/searchPatients')
+    },
+    placeUserInGlobalStorage () {
+      if (localStorage.getItem('__nutrologic_user_info')) {
+        const user = JSON.parse(localStorage.getItem('__nutrologic_user_info'))
+        this.$store.commit('setUser', user)
+      }
+    }
+  },
+  mounted () {
+    this.placeUserInGlobalStorage()
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   }
 }
