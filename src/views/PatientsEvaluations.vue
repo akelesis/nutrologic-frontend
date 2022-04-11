@@ -24,7 +24,7 @@
                 <td>{{evaluation.nutritionist_name || '-'}}</td>
                 <td>{{evaluation.evaluation_status}}</td>
                 <td class="action-buttons">
-                  <i class="far fa-check-square" v-if="evaluation.evaluation_status != 'em andamento'"></i>
+                  <i class="far fa-check-square" @click="redirectEvaluation(evaluation)" v-if="evaluation.evaluation_status != 'em andamento'"></i>
                   <i class="fas fa-search" @click="redirectPatientAutoEvalReport(evaluation)"></i>
                 </td>
               </tr>
@@ -76,6 +76,10 @@ export default {
     },
     redirectPatientAutoEvalReport (evaluation) {
       this.$router.push(`/nutritionist/patientAutoEvalReport?
+        patient=${evaluation.patient_id}&patient_evaluation=${evaluation.patient_evaluation_id}`)
+    },
+    redirectEvaluation (evaluation) {
+      this.$router.push(`/nutritionist/evaluation/medicalRecords01?
         patient=${evaluation.patient_id}&patient_evaluation=${evaluation.patient_evaluation_id}`)
     }
   },

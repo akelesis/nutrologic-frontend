@@ -4,18 +4,18 @@
     <main class="medical-records-main">
       <div class="medical-records-container">
         <div class="nutritionist-name-container">
-          <p>{{ user.name }}</p>
+          <p>Dr(a) {{ user.name }}</p>
         </div>
         <div class="medical-records-container">
           <div class="patient-name-file-container">
-            <span>Júlia Santana</span>
+            <span>{{patient.patient_name}}</span>
             <i class="far fa-file-alt" />
           </div>
           <evaluation-breadcrumbs step="1" stepsCounter="10" />
           <p id="medical-records-title">Cadastro de Prontuário e Avaliação</p>
           <div class="medical-records-content-container">
             <div class="nutritionist-input-group">
-              <default-input placeholder="Número do prontuário"/>
+              <default-input v-model="evaluation.med_record_number" placeholder="Número do prontuário"/>
             </div>
             <div class="nutritionist-input-group">
               <default-input placeholder="Acompanhante"/>
@@ -45,7 +45,7 @@
             <default-text-area placeholder="Tratamento" :rows="3"/>
           </div>
         </div>
-        <green-button label="Próximo" @click.native="redirectNextRecord"/>
+        <green-button label="Próximo" @click.native="redirectMedicalRecord02"/>
       </div>
     </main>
     <main-footer />
@@ -60,6 +60,8 @@ import NutritionistRadius from '../../components/NutritionistRadius.vue'
 import DefaultInput from '../../components/DefaultInput.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import axios from 'axios'
+import { baseUrl } from '../../global'
 export default {
   components: {
     Header,
@@ -72,14 +74,34 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
+      patient: {}
     }
   },
   methods: {
-    redirectNextRecord () {
-      this.$router.push('/nutritionist/evaluation/medicalRecords02')
+    async getPatientInfo () {
+      const patientId = this.$route.query.patient
+      try {
+        this.patient = await axios.get(`${baseUrl}/patient/${patientId}`)
+          .then(res => res.data)
+        console.log(this.patient)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    redirectMedicalRecord02 () {
+      this.$router.push(`/nutritionist/evaluation/medicalRecords02?
+        patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
+    }
+  },
+  mounted () {
+    this.getPatientInfo()
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

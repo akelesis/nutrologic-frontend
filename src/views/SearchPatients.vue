@@ -25,7 +25,7 @@
                 </td>
                 <td>{{patient.patient_name}}</td>
                 <td class="action-button">
-                  <i class="fas fa-search"></i>
+                  <i class="fas fa-search" @click="redirectPatientHistory(patient.patient_id)"></i>
                 </td>
               </tr>
             </tbody>
@@ -61,6 +61,9 @@ export default {
     },
     redirectPatientsEvaluations () {
       this.$router.push('/nutritionist/patientsEvaluations')
+    },
+    redirectPatientHistory (patientId) {
+      this.$router.push(`/nutritionist/patientHistory?patient=${patientId}`)
     },
     async findPatient () {
       try {

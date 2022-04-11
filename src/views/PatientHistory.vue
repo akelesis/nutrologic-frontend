@@ -4,25 +4,25 @@
     <main class="patients-history-main">
       <div class="patients-history-top-content">
         <div class="nutritionist-name-container">
-          <p>{{user.name}}</p>
+          <p>Dr(a). {{user.name}}</p>
         </div>
         <div class="patients-history-container">
-          <p id="patient-name">{{user.patientName}}</p>
+          <p id="patient-name">{{patientHistory[0].patient_name}}</p>
           <table class="patients-history-table">
             <thead>
               <th>Data</th>
               <th>Horário</th>
               <th>Status</th>
-              <th>Pontuação</th>
+              <th>Avaliação Global</th>
               <th>Ações</th>
             </thead>
             <tbody>
-              <tr v-for="history in PatientHistory" :key="history.id">
-                <td>{{history.data}}</td>
-                <td>{{history.horario}}</td>
-                <td>{{history.status}}</td>
-                <td>{{history.pontuacao}}</td>
-                <td class="action-buttons" v-if="history.pontuacao === 'undefined'">--</td>
+              <tr v-for="history in patientHistory" :key="history.id">
+                <td>{{history.created_at.split('T')[0] | formatedDate}}</td>
+                <td>{{history.created_at.split('T')[1] | formatedTime}}</td>
+                <td>{{history.evaluation_status}}</td>
+                <td>{{history.global_eval ? history.global_eval : 'não definido'}}</td>
+                <td class="action-buttons" v-if="history.global_eval === null">--</td>
                 <td class="action-buttons" v-else>
                   <i class="fas fa-search"></i>
                 </td>
@@ -31,16 +31,18 @@
           </table>
         </div>
       </div>
-      <GreenButton label="Voltar"/>
+      <GreenButton label="Voltar" @click.native="redirectSearchPatients" />
     </main>
     <main-footer />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import GreenButton from '../components/GreenButton.vue'
 import Header from '../components/Header.vue'
 import MainFooter from '../components/MainFooter.vue'
+import { baseUrl } from '../global'
 export default {
   components: {
     Header,
@@ -49,33 +51,41 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos',
-        patientName: 'Júlia Santana'
-      },
-      PatientHistory: [
-        {
-          id: '1',
-          data: '01/08/2021',
-          horario: '13:35',
-          status: 'Aberta',
-          pontuacao: 'undefined'
-        },
-        {
-          id: '2',
-          data: '04/07/2021',
-          horario: '16:04',
-          status: 'Em Andamento',
-          pontuacao: 'undefined'
-        },
-        {
-          id: '3',
-          data: '20/06/2021',
-          horario: '14:28',
-          status: 'Finalizada',
-          pontuacao: 'B'
-        }
-      ]
+      patientHistory: []
+    }
+  },
+  methods: {
+    async loadPatientHistory () {
+      const patientId = this.$route.query.patient
+      try {
+        this.patientHistory = await axios.get(`${baseUrl}/patientHistory/${patientId}`)
+          .then(res => res.data)
+        console.log(this.patientHistory)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    redirectSearchPatients () {
+      this.$router.push('/nutritionist/searchPatients')
+    }
+  },
+  filters: {
+    formatedDate (date) {
+      const splitDate = date.split('-')
+      return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
+    },
+    formatedTime (UTCTime) {
+      const hoursMinutesSeconds = UTCTime.split('.')[0]
+      const splitTime = hoursMinutesSeconds.split(':')
+      return `${splitTime[0]}:${splitTime[1]}`
+    }
+  },
+  mounted () {
+    this.loadPatientHistory()
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   }
 }
