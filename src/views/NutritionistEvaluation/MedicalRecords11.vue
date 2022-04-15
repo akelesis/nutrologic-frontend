@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -18,33 +18,33 @@
           <span class="row-1 column-4 grid-text-center">déficit moderado</span>
           <span class="row-1 column-5 grid-text-center">déficit grave</span>
           <span class="row-2 column-1 grid-text-start">Avaliação geral do déficit de gordura - Estado de hidratação</span>
-          <nutritionist-radius class="row-2 column-2 grid-input" value="" id="item1-1" name="item1"/>
-          <nutritionist-radius class="row-2 column-3 grid-input" value="" id="item1-2" name="item1"/>
-          <nutritionist-radius class="row-2 column-4 grid-input" value="" id="item1-3" name="item1"/>
-          <nutritionist-radius class="row-2 column-5 grid-input" value="" id="item1-4" name="item1"/>
+          <nutritionist-radius v-model="evaluation.hydrationFatStatus" class="row-2 column-2 grid-input" value="" id="item1-1" name="item1"/>
+          <nutritionist-radius v-model="evaluation.hydrationFatStatus" class="row-2 column-3 grid-input" value="" id="item1-2" name="item1"/>
+          <nutritionist-radius v-model="evaluation.hydrationFatStatus" class="row-2 column-4 grid-input" value="" id="item1-3" name="item1"/>
+          <nutritionist-radius v-model="evaluation.hydrationFatStatus" class="row-2 column-5 grid-input" value="" id="item1-4" name="item1"/>
           <span class="row-3 column-1 grid-text-start">Edema do tornozelo</span>
-          <nutritionist-radius class="row-3 column-2 grid-input" value="" id="item2-1" name="item2"/>
-          <nutritionist-radius class="row-3 column-3 grid-input" value="" id="item2-2" name="item2"/>
-          <nutritionist-radius class="row-3 column-4 grid-input" value="" id="item2-3" name="item2"/>
-          <nutritionist-radius class="row-3 column-5 grid-input" value="" id="item2-4" name="item2"/>
+          <nutritionist-radius v-model="evaluation.ankleSwelling" class="row-3 column-2 grid-input" value="" id="item2-1" name="item2"/>
+          <nutritionist-radius v-model="evaluation.ankleSwelling" class="row-3 column-3 grid-input" value="" id="item2-2" name="item2"/>
+          <nutritionist-radius v-model="evaluation.ankleSwelling" class="row-3 column-4 grid-input" value="" id="item2-3" name="item2"/>
+          <nutritionist-radius v-model="evaluation.ankleSwelling" class="row-3 column-5 grid-input" value="" id="item2-4" name="item2"/>
           <span class="row-4 column-1 grid-text-start">Edema sacral</span>
-          <nutritionist-radius class="row-4 column-2 grid-input" value="" id="item3-1" name="item3"/>
-          <nutritionist-radius class="row-4 column-3 grid-input" value="" id="item3-2" name="item3"/>
-          <nutritionist-radius class="row-4 column-4 grid-input" value="" id="item3-3" name="item3"/>
-          <nutritionist-radius class="row-4 column-5 grid-input" value="" id="item3-4" name="item3"/>
+          <nutritionist-radius v-model="evaluation.sacralEdema" class="row-4 column-2 grid-input" value="" id="item3-1" name="item3"/>
+          <nutritionist-radius v-model="evaluation.sacralEdema" class="row-4 column-3 grid-input" value="" id="item3-2" name="item3"/>
+          <nutritionist-radius v-model="evaluation.sacralEdema" class="row-4 column-4 grid-input" value="" id="item3-3" name="item3"/>
+          <nutritionist-radius v-model="evaluation.sacralEdema" class="row-4 column-5 grid-input" value="" id="item3-4" name="item3"/>
           <span class="row-5 column-1 grid-text-start">Ascite</span>
-          <nutritionist-radius class="row-5 column-2 grid-input" value="" id="item4-1" name="item4"/>
-          <nutritionist-radius class="row-5 column-3 grid-input" value="" id="item4-2" name="item4"/>
-          <nutritionist-radius class="row-5 column-4 grid-input" value="" id="item4-3" name="item4"/>
-          <nutritionist-radius class="row-5 column-5 grid-input" value="" id="item4-4" name="item4"/>
+          <nutritionist-radius v-model="evaluation.ascites" class="row-5 column-2 grid-input" value="" id="item4-1" name="item4"/>
+          <nutritionist-radius v-model="evaluation.ascites" class="row-5 column-3 grid-input" value="" id="item4-2" name="item4"/>
+          <nutritionist-radius v-model="evaluation.ascites" class="row-5 column-4 grid-input" value="" id="item4-3" name="item4"/>
+          <nutritionist-radius v-model="evaluation.ascites" class="row-5 column-5 grid-input" value="" id="item4-4" name="item4"/>
           <span class="row-6 column-1 grid-text-start">Avaliação geral do estado de hidratação</span>
-          <nutritionist-radius class="row-6 column-2 grid-input" value="" id="item5-1" name="item5"/>
-          <nutritionist-radius class="row-6 column-3 grid-input" value="" id="item5-2" name="item5"/>
-          <nutritionist-radius class="row-6 column-4 grid-input" value="" id="item5-3" name="item5"/>
-          <nutritionist-radius class="row-6 column-5 grid-input" value="" id="item5-4" name="item5"/>
+          <nutritionist-radius v-model="evaluation.hydrationGeneralStatus" class="row-6 column-2 grid-input" value="" id="item5-1" name="item5"/>
+          <nutritionist-radius v-model="evaluation.hydrationGeneralStatus" class="row-6 column-3 grid-input" value="" id="item5-2" name="item5"/>
+          <nutritionist-radius v-model="evaluation.hydrationGeneralStatus" class="row-6 column-4 grid-input" value="" id="item5-3" name="item5"/>
+          <nutritionist-radius v-model="evaluation.hydrationGeneralStatus" class="row-6 column-5 grid-input" value="" id="item5-4" name="item5"/>
           <div class="row-7 column-1 score-container">
             <span class="grid-text-start">PONTUAÇÃO GERAL</span>
-            <default-select :options="options" />
+            <default-select v-model="generalScore" :options="options" />
           </div>
         </div>
         <p id="total-score">Pontuação Total: 0</p>
@@ -78,9 +78,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      },
       options: [1, 2, 3]
     }
   },
@@ -90,6 +87,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords10')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

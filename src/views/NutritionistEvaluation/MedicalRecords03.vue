@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -16,26 +16,26 @@
           <div class="medical-records-evacuation">
             <p>Ritmo intestinal:</p>
             <div class="evacuation-radius-input">
-              <nutritionist-radius value="Lento" id="evacuation-slow" name="evacuation"/>
-              <nutritionist-radius value="Normal" id="evacuation-normal" name="evacuation"/>
-              <nutritionist-radius value="Acelerado" id="evacuation-fast" name="evacuation"/>
+              <nutritionist-radius v-model="evaluation.bowel_movements" value="Lento" id="evacuation-slow" name="evacuation"/>
+              <nutritionist-radius v-model="evaluation.bowel_movements" value="Normal" id="evacuation-normal" name="evacuation"/>
+              <nutritionist-radius v-model="evaluation.bowel_movements" value="Acelerado" id="evacuation-fast" name="evacuation"/>
             </div>
           </div>
           <div class="consistency-input-container">
             <span>Consistência: </span>
             <div class="consistency-text-input">
-              <default-input inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.consistency" inputType="text" placeholder=""/>
             </div>
           </div>
           <div class="medical-records-urinalysis">
             <p>Ritmo urinário:</p>
             <div class="urinalysis-radius-input">
-              <nutritionist-radius value="Lento" id="urinalysis-slow" name="urinalysis"/>
-              <nutritionist-radius value="Normal" id="urinalysis-normal" name="urinalysis"/>
-              <nutritionist-radius value="Acelerado" id="urinalysis-fast" name="urinalysis"/>
+              <nutritionist-radius v-model="evaluation.urinary_rhythm" value="Lento" id="urinalysis-slow" name="urinalysis"/>
+              <nutritionist-radius v-model="evaluation.urinary_rhythm" value="Normal" id="urinalysis-normal" name="urinalysis"/>
+              <nutritionist-radius v-model="evaluation.urinary_rhythm" value="Acelerado" id="urinalysis-fast" name="urinalysis"/>
             </div>
           </div>
-          <default-text-area rows="3" placeholder="Evolução Clínica"/>
+          <default-text-area v-model="evaluation.clinicalEvolution" rows="3" placeholder="Evolução Clínica"/>
         </div>
       </div>
       <div class="nav-buttons-container">
@@ -68,9 +68,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
     }
   },
   methods: {
@@ -79,6 +76,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords02')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

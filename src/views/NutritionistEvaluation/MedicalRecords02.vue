@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -13,28 +13,28 @@
         <evaluation-breadcrumbs step="2" stepsCounter="10" />
         <p id="medical-records-title">Cadastro de Prontuário e Avaliação</p>
         <div class="medical-records-content-container">
-          <default-text-area rows="3" placeholder="Exames laboratoriais"/>
-          <default-text-area rows="3" placeholder="Medicamentos em uso"/>
+          <default-text-area v-model="evaluation.lab_exams" rows="3" placeholder="Exames laboratoriais"/>
+          <default-text-area v-model="evaluation.medicines" rows="3" placeholder="Medicamentos em uso"/>
           <div class="medical-records-allergies">
             <p>Alergia ou intolerância alimentar:</p>
             <div class="allergies-radius-input">
-              <nutritionist-radius value="Não" id="allergies-no" name="allergies"/>
-              <nutritionist-radius value="Sim" id="allergies-yes" name="allergies"/>
+              <nutritionist-radius v-model="evaluation.alergies" value="Não" id="allergies-no" name="allergies"/>
+              <nutritionist-radius v-model="evaluation.alergies" value="Sim" id="allergies-yes" name="allergies"/>
             </div>
-            <default-text-area rows="2" placeholder="Alimentos relacionados"/>
+            <default-text-area v-model="evaluation.foods" rows="2" placeholder="Alimentos relacionados"/>
           </div>
           <div class="medical-records-exercises">
             <div class="exercises-input-container">
               <p>Atividades físicas:</p>
               <div class="exercises-radius-input">
-                <nutritionist-radius value="Não" id="exercises-no" name="exercises"/>
-                <nutritionist-radius value="Sim" id="exercises-yes" name="exercises"/>
+                <nutritionist-radius v-model="evaluation.physical_activities" value="Não" id="exercises-no" name="exercises"/>
+                <nutritionist-radius v-model="evaluation.physical_activities" value="Sim" id="exercises-yes" name="exercises"/>
               </div>
             </div>
             <div class="exercises-input-container">
               <p>Frequência semanal:</p>
               <div class="exercises-text-input">
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.frequency" inputType="text" placeholder=""/>
               </div>
             </div>
           </div>
@@ -70,9 +70,7 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
+
     }
   },
   methods: {
@@ -81,6 +79,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords01')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

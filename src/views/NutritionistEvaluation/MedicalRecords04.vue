@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -17,14 +17,14 @@
             <div class="input-container">
               <span>Altura: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.height" inputType="text" placeholder=""/>
                 <span>m</span>
               </div>
             </div>
             <div class="input-container">
               <span>Peso atual: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.current_weight" inputType="text" placeholder=""/>
                 <span>Kg</span>
               </div>
             </div>
@@ -33,40 +33,40 @@
             <div class="input-container">
               <span>Peso usual: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.usual_weight" inputType="text" placeholder=""/>
                 <span>Kg</span>
               </div>
             </div>
             <div class="input-container">
               <span>Obs. peso atual: </span>
-              <default-input inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.usual_weight_note" inputType="text" placeholder=""/>
             </div>
           </div>
           <div class="input-row-container">
             <div class="input-container">
               <span>%PP: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.pp" inputType="text" placeholder=""/>
                 <span>%</span>
               </div>
             </div>
             <div class="input-container">
               <span>Obs. %PP: </span>
-              <default-input inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.pp_note" inputType="text" placeholder=""/>
             </div>
           </div>
           <div class="input-row-container">
             <div class="input-container">
               <span>IMC: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.imc" inputType="text" placeholder=""/>
                 <span>Kg/m²</span>
               </div>
             </div>
             <div class="input-container">
               <span>Cabd: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.cabd" inputType="text" placeholder=""/>
                 <span>cm</span>
               </div>
             </div>
@@ -75,14 +75,14 @@
             <div class="input-container">
               <span>AMBc: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.ambc" inputType="text" placeholder=""/>
                 <span>cm</span>
               </div>
             </div>
             <div class="input-container">
               <span>Dinamometria: </span>
               <div>
-                <default-input inputType="text" placeholder=""/>
+                <default-input v-model="evaluation.dynamometry" inputType="text" placeholder=""/>
                 <span>cm</span>
               </div>
             </div>
@@ -90,7 +90,7 @@
           <div class="last-input-container">
             <span>Circunferência da panturrilha: </span>
             <div>
-              <default-input inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.calfCircumference" inputType="text" placeholder=""/>
               <span>cm</span>
             </div>
           </div>
@@ -122,9 +122,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
     }
   },
   methods: {
@@ -133,6 +130,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords03')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

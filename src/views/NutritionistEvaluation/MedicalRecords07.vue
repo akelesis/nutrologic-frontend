@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -15,25 +15,25 @@
         <div class="medical-records-input-container">
           <div class="text-area-input-container">
             <p>Outros diagnósticos relevantes</p>
-            <default-text-area rows="2" placeholder=""/>
+            <default-text-area v-model="evaluation.other_diagnosis" rows="2" placeholder=""/>
           </div>
           <div class="primary-disease-input-container default-width">
             <span>Estadiamento da doença primária: </span>
-            <default-select :options="deseaseStateOptions" />
+            <default-select v-model="evaluation.first_disease_state" :options="deseaseStateOptions" />
           </div>
           <div class="text-area-input-container">
             <p>Outro</p>
-            <default-text-area rows="2" placeholder=""/>
+            <default-text-area v-model="evaluation.other" rows="2" placeholder=""/>
           </div>
           <div class="conditions-grid-container">
             <p>Marque todas as condições que se encaixam</p>
-            <default-checkbox class="grid-row-1 grid-item-1" id="item-1" name="item-1-check" value="Câncer"/>
-            <default-checkbox class="grid-row-1 grid-item-2" id="item-2" name="item-2-check" value="AIDS"/>
-            <default-checkbox class="grid-row-1 grid-item-3" id="item-3" name="item-3-check" value="Caquexia cardíaca ou pulmonar"/>
-            <default-checkbox class="grid-row-2 grid-item-half-1" id="item-4" name="item-4-check" value="Úlcera de decúbito, ferida aberta ou fístula"/>
-            <default-checkbox class="grid-row-2 grid-item-half-2" id="item-5" name="item-5-check" value="Presença de trauma"/>
-            <default-checkbox class="grid-row-3 grid-item-half-1" id="item-6" name="item-6-check" value="Idade maior que 65 anos"/>
-            <default-checkbox class="grid-row-3 grid-item-half-2" id="item-7" name="item-7-check" value="Insuficiência renal crônica"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-1" id="item-1" name="item-1-check" value="Câncer"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-2" id="item-2" name="item-2-check" value="AIDS"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-3" id="item-3" name="item-3-check" value="Caquexia cardíaca ou pulmonar"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-2 grid-item-half-1" id="item-4" name="item-4-check" value="Úlcera de decúbito, ferida aberta ou fístula"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-2 grid-item-half-2" id="item-5" name="item-5-check" value="Presença de trauma"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-3 grid-item-half-1" id="item-6" name="item-6-check" value="Idade maior que 65 anos"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-3 grid-item-half-2" id="item-7" name="item-7-check" value="Insuficiência renal crônica"/>
           </div>
           <p id="total-score">Pontuação Total: 0</p>
         </div>
@@ -68,9 +68,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      },
       deseaseStateOptions: ['I', 'II', 'III', 'IV']
     }
   },
@@ -80,6 +77,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords06')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

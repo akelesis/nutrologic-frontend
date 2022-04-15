@@ -1,5 +1,5 @@
 <template>
-  <div class="PatientLogin">
+  <div class="NutritionistLogin">
     <Header headerStyle="TransparentHeader" />
     <main class="login-form-container">
       <div class="login-form-header">
@@ -9,7 +9,7 @@
         <input type="text" placeholder="Usuário" v-model="login.nutritionist_email" />
         <input type="password" placeholder="Senha" v-model="login.nutritionist_password" />
       </div>
-      <button class="patient-login-btn" @click="signin">ENTRAR</button>
+      <button class="nutritionist-login-btn" @click="signin">ENTRAR</button>
     </main>
     <MainFooter />
   </div>
@@ -46,7 +46,7 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap");
 
-.PatientLogin {
+.NutritionistLogin {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -108,7 +108,7 @@ export default {
   color: #fff;
 }
 
-.patient-login-btn {
+.nutritionist-login-btn {
   height: 60px;
   border: none;
   border-radius: 5px;
@@ -122,7 +122,7 @@ export default {
   transition: 0.2s;
 }
 
-.patient-login-btn:hover {
+.nutritionist-login-btn:hover {
   filter: brightness(110%);
   cursor: pointer;
 }

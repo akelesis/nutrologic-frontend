@@ -18,31 +18,31 @@
               <default-input v-model="evaluation.med_record_number" placeholder="Número do prontuário"/>
             </div>
             <div class="nutritionist-input-group">
-              <default-input placeholder="Acompanhante"/>
-              <default-input placeholder="Diagnóstico"/>
+              <default-input v-model="evaluation.companion" placeholder="Acompanhante"/>
+              <default-input v-model="evaluation.diagnosis" placeholder="Diagnóstico"/>
             </div>
             <div class="desease-info-container">
               <p class="question-title">Estadiamento:</p>
               <div class="desease-stage-container">
                 <div class="radius-group">
-                  <nutritionist-radius id="one" name="desease-stage-radius" value="I" />
-                  <nutritionist-radius id="two" name="desease-stage-radius" value="II" />
-                  <nutritionist-radius id="three" name="desease-stage-radius" value="III" />
-                  <nutritionist-radius id="four" name="desease-stage-radius" value="IV" />
+                  <nutritionist-radius id="one" v-model="evaluation.state" name="desease-stage-radius" value="I" />
+                  <nutritionist-radius id="two" v-model="evaluation.state" name="desease-stage-radius" value="II" />
+                  <nutritionist-radius id="three" v-model="evaluation.state" name="desease-stage-radius" value="III" />
+                  <nutritionist-radius id="four" v-model="evaluation.state" name="desease-stage-radius" value="IV" />
                 </div>
                 <div class="tmng-fields">
                   <label for="t-field">T</label>
-                  <input type="text"  class="tmng-field" id="t-field">
+                  <input type="text" v-model="evaluation.t"  class="tmng-field" id="t-field">
                   <label for="m-field">M</label>
-                  <input type="text" id="m-field" class="tmng-field">
+                  <input type="text" v-model="evaluation.m" id="m-field" class="tmng-field">
                   <label for="n-field">N</label>
-                  <input type="text"  id="n-field" class="tmng-field">
+                  <input type="text" v-model="evaluation.n"  id="n-field" class="tmng-field">
                   <label for="g-field">G</label>
-                  <input type="text"  id="g-field" class="tmng-field">
+                  <input type="text" v-model="evaluation.g" id="g-field" class="tmng-field">
                 </div>
               </div>
             </div>
-            <default-text-area placeholder="Tratamento" :rows="3"/>
+            <default-text-area v-model="evaluation.treatment" placeholder="Tratamento" :rows="3"/>
           </div>
         </div>
         <green-button label="Próximo" @click.native="redirectMedicalRecord02"/>
@@ -83,7 +83,6 @@ export default {
       try {
         this.patient = await axios.get(`${baseUrl}/patient/${patientId}`)
           .then(res => res.data)
-        console.log(this.patient)
       } catch (err) {
         console.log(err)
       }

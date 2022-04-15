@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -15,24 +15,24 @@
         <div class="medical-records-input-container">
           <div class="grid-container">
             <p class="grid-title">Febre</p>
-            <nutritionist-radius class="row-1 column-1" value="Sem febre" id="temperature-1" name="temperature"/>
-            <nutritionist-radius class="row-2 column-1" value="Maior que 37.2ºC e menor que 38.3ºC" id="temperature-2" name="temperature"/>
-            <nutritionist-radius class="row-1 column-2" value="Maior ou igual a 38.3ºC e menor que 38.9ºC" id="temperature-3" name="temperature"/>
-            <nutritionist-radius class="row-2 column-2" value="Acima de 38.9ºC" id="temperature-4" name="temperature"/>
+            <nutritionist-radius v-model="evaluation.ferver" class="row-1 column-1" value="Sem febre" id="temperature-1" name="temperature"/>
+            <nutritionist-radius v-model="evaluation.ferver" class="row-2 column-1" value="Maior que 37.2ºC e menor que 38.3ºC" id="temperature-2" name="temperature"/>
+            <nutritionist-radius v-model="evaluation.ferver" class="row-1 column-2" value="Maior ou igual a 38.3ºC e menor que 38.9ºC" id="temperature-3" name="temperature"/>
+            <nutritionist-radius v-model="evaluation.ferver" class="row-2 column-2" value="Acima de 38.9ºC" id="temperature-4" name="temperature"/>
           </div>
           <div class="grid-container">
             <p class="grid-title">Tempo de febre</p>
-            <nutritionist-radius class="row-1 column-1" value="Sem febre" id="duration-1" name="duration"/>
-            <nutritionist-radius class="row-2 column-1" value="Menos de 72 horas" id="duration-2" name="duration"/>
-            <nutritionist-radius class="row-1 column-2" value="Igual a 72 horas" id="duration-3" name="duration"/>
-            <nutritionist-radius class="row-2 column-2" value="Acima de 72 horas" id="duration-4" name="duration"/>
+            <nutritionist-radius v-model="evaluation.time_of_ferver" class="row-1 column-1" value="Sem febre" id="duration-1" name="duration"/>
+            <nutritionist-radius v-model="evaluation.time_of_ferver" class="row-2 column-1" value="Menos de 72 horas" id="duration-2" name="duration"/>
+            <nutritionist-radius v-model="evaluation.time_of_ferver" class="row-1 column-2" value="Igual a 72 horas" id="duration-3" name="duration"/>
+            <nutritionist-radius v-model="evaluation.time_of_ferver" class="row-2 column-2" value="Acima de 72 horas" id="duration-4" name="duration"/>
           </div>
           <div class="grid-container">
             <p class="grid-title">Corticosteroides</p>
-            <nutritionist-radius class="row-1 column-1" value="Sem corticosteoides" id="corticosteroids-1" name="corticosteroids"/>
-            <nutritionist-radius class="row-2 column-1" value="Dose baixa (10mg equival. prednisolona/dia)" id="corticosteroids-2" name="corticosteroids"/>
-            <nutritionist-radius class="row-1 column-2" value="Dose Moderada (≥ 10mb a < 30mg equival. prednisolona/dia)" id="corticosteroids-3" name="corticosteroids"/>
-            <nutritionist-radius class="row-2 column-2" value="Dose elevada (≥ 30mg equival. prednisolona/dia)" id="corticosteroids-4" name="corticosteroids"/>
+            <nutritionist-radius v-model="evaluation.corticosteroids" class="row-1 column-1" value="Sem corticosteoides" id="corticosteroids-1" name="corticosteroids"/>
+            <nutritionist-radius v-model="evaluation.corticosteroids" class="row-2 column-1" value="Dose baixa (10mg equival. prednisolona/dia)" id="corticosteroids-2" name="corticosteroids"/>
+            <nutritionist-radius v-model="evaluation.corticosteroids" class="row-1 column-2" value="Dose Moderada (≥ 10mb a < 30mg equival. prednisolona/dia)" id="corticosteroids-3" name="corticosteroids"/>
+            <nutritionist-radius v-model="evaluation.corticosteroids" class="row-2 column-2" value="Dose elevada (≥ 30mg equival. prednisolona/dia)" id="corticosteroids-4" name="corticosteroids"/>
           </div>
         </div>
         <p id="total-score">Pontuação Total: 0</p>
@@ -63,9 +63,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
     }
   },
   methods: {
@@ -74,6 +71,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords07')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

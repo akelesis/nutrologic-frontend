@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -18,25 +18,25 @@
           <span class="row-1 column-4 grid-text-center">déficit moderado</span>
           <span class="row-1 column-5 grid-text-center">déficit grave</span>
           <span class="row-2 column-1 grid-text-start">Avaliação geral do estado muscular - Reservas de gordura</span>
-          <nutritionist-radius class="row-2 column-2 grid-input" value="" id="item1-1" name="item1"/>
-          <nutritionist-radius class="row-2 column-3 grid-input" value="" id="item1-2" name="item1"/>
-          <nutritionist-radius class="row-2 column-4 grid-input" value="" id="item1-3" name="item1"/>
-          <nutritionist-radius class="row-2 column-5 grid-input" value="" id="item1-4" name="item1"/>
+          <nutritionist-radius v-model="evaluation.fatReserves" class="row-2 column-2 grid-input" value="" id="item1-1" name="item1"/>
+          <nutritionist-radius v-model="evaluation.fatReserves" class="row-2 column-3 grid-input" value="" id="item1-2" name="item1"/>
+          <nutritionist-radius v-model="evaluation.fatReserves" class="row-2 column-4 grid-input" value="" id="item1-3" name="item1"/>
+          <nutritionist-radius v-model="evaluation.fatReserves" class="row-2 column-5 grid-input" value="" id="item1-4" name="item1"/>
           <span class="row-3 column-1 grid-text-start">Região periorbital</span>
-          <nutritionist-radius class="row-3 column-2 grid-input" value="" id="item2-1" name="item2"/>
-          <nutritionist-radius class="row-3 column-3 grid-input" value="" id="item2-2" name="item2"/>
-          <nutritionist-radius class="row-3 column-4 grid-input" value="" id="item2-3" name="item2"/>
-          <nutritionist-radius class="row-3 column-5 grid-input" value="" id="item2-4" name="item2"/>
+          <nutritionist-radius v-model="evaluation.periorbitalRegion" class="row-3 column-2 grid-input" value="" id="item2-1" name="item2"/>
+          <nutritionist-radius v-model="evaluation.periorbitalRegion" class="row-3 column-3 grid-input" value="" id="item2-2" name="item2"/>
+          <nutritionist-radius v-model="evaluation.periorbitalRegion" class="row-3 column-4 grid-input" value="" id="item2-3" name="item2"/>
+          <nutritionist-radius v-model="evaluation.periorbitalRegion" class="row-3 column-5 grid-input" value="" id="item2-4" name="item2"/>
           <span class="row-4 column-1 grid-text-start">Prega cutânea do tríceps</span>
-          <nutritionist-radius class="row-4 column-2 grid-input" value="" id="item3-1" name="item3"/>
-          <nutritionist-radius class="row-4 column-3 grid-input" value="" id="item3-2" name="item3"/>
-          <nutritionist-radius class="row-4 column-4 grid-input" value="" id="item3-3" name="item3"/>
-          <nutritionist-radius class="row-4 column-5 grid-input" value="" id="item3-4" name="item3"/>
+          <nutritionist-radius v-model="evaluation.tricepsSkinFold" class="row-4 column-2 grid-input" value="" id="item3-1" name="item3"/>
+          <nutritionist-radius v-model="evaluation.tricepsSkinFold" class="row-4 column-3 grid-input" value="" id="item3-2" name="item3"/>
+          <nutritionist-radius v-model="evaluation.tricepsSkinFold" class="row-4 column-4 grid-input" value="" id="item3-3" name="item3"/>
+          <nutritionist-radius v-model="evaluation.tricepsSkinFold" class="row-4 column-5 grid-input" value="" id="item3-4" name="item3"/>
           <span class="row-5 column-1 grid-text-start">Gordura sobre as costelas inferiores</span>
-          <nutritionist-radius class="row-5 column-2 grid-input" value="" id="item4-1" name="item4"/>
-          <nutritionist-radius class="row-5 column-3 grid-input" value="" id="item4-2" name="item4"/>
-          <nutritionist-radius class="row-5 column-4 grid-input" value="" id="item4-3" name="item4"/>
-          <nutritionist-radius class="row-5 column-5 grid-input" value="" id="item4-4" name="item4"/>
+          <nutritionist-radius v-model="evaluation.FatOnTheRibs" class="row-5 column-2 grid-input" value="" id="item4-1" name="item4"/>
+          <nutritionist-radius v-model="evaluation.FatOnTheRibs" class="row-5 column-3 grid-input" value="" id="item4-2" name="item4"/>
+          <nutritionist-radius v-model="evaluation.FatOnTheRibs" class="row-5 column-4 grid-input" value="" id="item4-3" name="item4"/>
+          <nutritionist-radius v-model="evaluation.FatOnTheRibs" class="row-5 column-5 grid-input" value="" id="item4-4" name="item4"/>
         </div>
         <p id="total-score">Pontuação Total: 0</p>
       </div>
@@ -67,9 +67,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
     }
   },
   methods: {
@@ -78,6 +75,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords09')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

@@ -38,6 +38,8 @@ export default {
   },
   methods: {
     register () {
+      console.log(`Enviando dados ${JSON.stringify(this.patient)}`)
+
       axios.post(`${baseUrl}/patient`, this.patient)
         .then(res => alert(res.data.msg))
         .then(() => this.$router.push('/patientLogin'))

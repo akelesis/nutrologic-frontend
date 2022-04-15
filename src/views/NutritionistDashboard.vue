@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.state.user
+      return JSON.parse(localStorage.getItem('__nutrologic_user_info'))
     }
   }
 }

@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -15,29 +15,29 @@
         <div class="medical-records-grid-container">
           <p>IDN</p>
           <div class="medical-records-left-input">
-            <nutritionist-radius value="Desnutrição Grave" id="IDN-1" name="IDN"/>
-            <nutritionist-radius value="Desnutrição Moderada" id="IDN-2" name="IDN"/>
-            <nutritionist-radius value="Desnutrição Leve" id="IDN-3" name="IDN"/>
-            <nutritionist-radius value="Magreza" id="IDN-4" name="IDN"/>
-            <nutritionist-radius value="Eutrofia" id="IDN-5" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" value="Desnutrição Grave" id="IDN-1" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Desnutrição Moderada" id="IDN-2" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Desnutrição Leve" id="IDN-3" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Magreza" id="IDN-4" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Eutrofia" id="IDN-5" name="IDN"/>
           </div>
           <div class="medical-records-right-input">
-            <nutritionist-radius value="Sobrepeso" id="IDN-6" name="IDN"/>
-            <nutritionist-radius value="Obesidade I" id="IDN-7" name="IDN"/>
-            <nutritionist-radius value="Obesidade II" id="IDN-8" name="IDN"/>
-            <nutritionist-radius value="Obesidade III" id="IDN-9" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Sobrepeso" id="IDN-6" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Obesidade I" id="IDN-7" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Obesidade II" id="IDN-8" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn"  value="Obesidade III" id="IDN-9" name="IDN"/>
           </div>
         </div>
         <div class="risks-input-container">
           <p>Risco Nutricional: </p>
           <div class="risks-radius-input">
-            <nutritionist-radius value="Não" id="risks-no" name="risks"/>
-            <nutritionist-radius value="Sim" id="risks-yes" name="risks"/>
+            <nutritionist-radius v-model="evaluation.nutritional_risk" value="Não" id="risks-no" name="risks"/>
+            <nutritionist-radius v-model="evaluation.nutritional_risk" value="Sim" id="risks-yes" name="risks"/>
           </div>
         </div>
         <div class="conduct-input-container">
           <p>Conduta: </p>
-          <default-text-area rows="3" placeholder=""/>
+          <default-text-area v-model="evaluation.behavior" rows="3" placeholder=""/>
         </div>
       </div>
       <div class="nav-buttons-container">
@@ -68,9 +68,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
     }
   },
   methods: {
@@ -79,6 +76,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords04')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }

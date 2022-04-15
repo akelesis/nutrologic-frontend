@@ -3,7 +3,7 @@
     <Header headerStyle="NutritionistHeader"/>
     <main class="medical-records-main">
       <div class="nutritionist-name-container">
-        <p>{{user.name}}</p>
+        <p>Dr(a) {{user.name}}</p>
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
@@ -15,17 +15,17 @@
         <div class="weight-loss-container">
           <div class="weight-input-container">
               <span>Peso anterior: </span>
-              <default-input inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.last_weight" inputType="text" placeholder=""/>
           </div>
           <div class="weight-input-container">
               <span>Peso atual: </span>
-              <default-input inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.current_weight" inputType="text" placeholder=""/>
           </div>
           <div class="weight-input-container">
               <span>Percentual de perda: </span>
-              <default-input inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.loss_percentage" inputType="text" placeholder=""/>
           </div>
-          <default-checkbox class="recent-weight-loss" id="recent-weight-loss" name="recent-weight-loss-check" value="Houve perda de peso nas últimas 2 semanas"/>
+          <default-checkbox v-model="evaluation.weightLoss2weeks" class="recent-weight-loss" id="recent-weight-loss" name="recent-weight-loss-check" value="Houve perda de peso nas últimas 2 semanas"/>
           <p id="total-score">Pontuação Total: 0</p>
         </div>
       </div>
@@ -57,9 +57,6 @@ export default {
   },
   data () {
     return {
-      user: {
-        name: 'Dr. João Carlos'
-      }
     }
   },
   methods: {
@@ -68,6 +65,14 @@ export default {
     },
     redirectPreviousRecord () {
       this.$router.push('/nutritionist/evaluation/medicalRecords05')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    evaluation () {
+      return this.$store.state.evaluation
     }
   }
 }
