@@ -49,6 +49,8 @@
       </div>
     </main>
     <main-footer />
+    <modal />
+    <overlay />
   </div>
 </template>
 
@@ -60,6 +62,8 @@ import NutritionistRadius from '../../components/NutritionistRadius.vue'
 import DefaultInput from '../../components/DefaultInput.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import Modal from '../../components/Modal.vue'
+import Overlay from '../../components/Overlay.vue'
 import axios from 'axios'
 import { baseUrl } from '../../global'
 export default {
@@ -70,7 +74,9 @@ export default {
     NutritionistRadius,
     DefaultInput,
     DefaultTextArea,
-    GreenButton
+    GreenButton,
+    Modal,
+    Overlay
   },
   data () {
     return {
@@ -88,6 +94,7 @@ export default {
       }
     },
     redirectMedicalRecord02 () {
+      console.log(this.patient)
       this.$router.push(`/nutritionist/evaluation/medicalRecords02?
         patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
     }
@@ -111,6 +118,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   height: 100vh;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 300;

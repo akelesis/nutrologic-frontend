@@ -7,7 +7,7 @@
       </div>
       <div class="medical-records-container">
         <div class="patient-name-file-container">
-          <span>Júlia Santana</span>
+          <span>{{patient.patient_name}}</span>
           <i class="far fa-file-alt" />
         </div>
         <evaluation-breadcrumbs step="9" stepsCounter="10"/>
@@ -66,6 +66,8 @@ import GreenButton from '../../components/GreenButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import NutritionistRadius from '../../components/NutritionistRadius.vue'
 import DefaultSelect from '../../components/DefaultSelect.vue'
+import axios from 'axios'
+import { baseUrl } from '../../global'
 
 export default {
   components: {
@@ -78,16 +80,31 @@ export default {
   },
   data () {
     return {
+      patient: {},
       options: [1, 2, 3]
     }
   },
   methods: {
+    async getPatientInfo () {
+      const patientId = this.$route.query.patient
+      try {
+        this.patient = await axios.get(`${baseUrl}/patient/${patientId}`)
+          .then(res => res.data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
     redirectNextRecord () {
-      this.$router.push('/nutritionist/evaluation/medicalRecords12')
+      this.$router.push(`/nutritionist/evaluation/medicalRecords12?
+        patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
     },
     redirectPreviousRecord () {
-      this.$router.push('/nutritionist/evaluation/medicalRecords10')
+      this.$router.push(`/nutritionist/evaluation/medicalRecords10?
+        patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
     }
+  },
+  mounted () {
+    this.getPatientInfo()
   },
   computed: {
     user () {
