@@ -1,16 +1,16 @@
 <template>
   <div class="DefaultCheckbox">
     <span class="nutritionist-checkbox-input">
-      <input type="checkbox" :name="name" :id="id" :value="value" />
+      <input type="checkbox" :name="name" :id="id" :value="label" />
       <span class="nutritionist-checkbox-control"><i class="fas fa-check"></i></span>
     </span>
-    <label :for="id">{{ value }}</label>
+    <label :for="id">{{ label }}</label>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['name', 'id', 'value']
+  props: ['name', 'id', 'value', 'label']
 }
 </script>
 

@@ -25,10 +25,10 @@
               <p class="question-title">Estadiamento:</p>
               <div class="desease-stage-container">
                 <div class="radius-group">
-                  <nutritionist-radius id="one" v-model="evaluation.state" name="desease-stage-radius" value="I" />
-                  <nutritionist-radius id="two" v-model="evaluation.state" name="desease-stage-radius" value="II" />
-                  <nutritionist-radius id="three" v-model="evaluation.state" name="desease-stage-radius" value="III" />
-                  <nutritionist-radius id="four" v-model="evaluation.state" name="desease-stage-radius" value="IV" />
+                  <nutritionist-radius id="one" v-model="evaluation.state" name="desease-stage-radius" label="I" />
+                  <nutritionist-radius id="two" v-model="evaluation.state" name="desease-stage-radius" label="II" />
+                  <nutritionist-radius id="three" v-model="evaluation.state" name="desease-stage-radius" label="III" />
+                  <nutritionist-radius id="four" v-model="evaluation.state" name="desease-stage-radius" label="IV" />
                 </div>
                 <div class="tmng-fields">
                   <label for="t-field">T</label>
@@ -46,6 +46,7 @@
           </div>
         </div>
         <green-button label="Próximo" @click.native="redirectMedicalRecord02"/>
+        <pause-button />
       </div>
     </main>
     <main-footer />
@@ -62,6 +63,7 @@ import NutritionistRadius from '../../components/NutritionistRadius.vue'
 import DefaultInput from '../../components/DefaultInput.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import PauseButton from '../../components/PauseButton.vue'
 import Modal from '../../components/Modal.vue'
 import Overlay from '../../components/Overlay.vue'
 import axios from 'axios'
@@ -75,6 +77,7 @@ export default {
     DefaultInput,
     DefaultTextArea,
     GreenButton,
+    PauseButton,
     Modal,
     Overlay
   },

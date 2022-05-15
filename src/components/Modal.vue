@@ -21,6 +21,6 @@ export default {
     border-radius: 15px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     background-color: #fff;
-    z-index: 10;
+    z-index: 3;
 }
 </style>

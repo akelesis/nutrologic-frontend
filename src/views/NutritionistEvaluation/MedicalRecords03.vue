@@ -16,9 +16,9 @@
           <div class="medical-records-evacuation">
             <p>Ritmo intestinal:</p>
             <div class="evacuation-radius-input">
-              <nutritionist-radius v-model="evaluation.bowel_movements" value="Lento" id="evacuation-slow" name="evacuation"/>
-              <nutritionist-radius v-model="evaluation.bowel_movements" value="Normal" id="evacuation-normal" name="evacuation"/>
-              <nutritionist-radius v-model="evaluation.bowel_movements" value="Acelerado" id="evacuation-fast" name="evacuation"/>
+              <nutritionist-radius v-model="evaluation.bowel_movements" label="Lento" id="evacuation-slow" name="evacuation"/>
+              <nutritionist-radius v-model="evaluation.bowel_movements" label="Normal" id="evacuation-normal" name="evacuation"/>
+              <nutritionist-radius v-model="evaluation.bowel_movements" label="Acelerado" id="evacuation-fast" name="evacuation"/>
             </div>
           </div>
           <div class="consistency-input-container">
@@ -30,9 +30,9 @@
           <div class="medical-records-urinalysis">
             <p>Ritmo urinário:</p>
             <div class="urinalysis-radius-input">
-              <nutritionist-radius v-model="evaluation.urinary_rhythm" value="Lento" id="urinalysis-slow" name="urinalysis"/>
-              <nutritionist-radius v-model="evaluation.urinary_rhythm" value="Normal" id="urinalysis-normal" name="urinalysis"/>
-              <nutritionist-radius v-model="evaluation.urinary_rhythm" value="Acelerado" id="urinalysis-fast" name="urinalysis"/>
+              <nutritionist-radius v-model="evaluation.urinary_rhythm" label="Lento" id="urinalysis-slow" name="urinalysis"/>
+              <nutritionist-radius v-model="evaluation.urinary_rhythm" label="Normal" id="urinalysis-normal" name="urinalysis"/>
+              <nutritionist-radius v-model="evaluation.urinary_rhythm" label="Acelarado" id="urinalysis-fast" name="urinalysis"/>
             </div>
           </div>
           <default-text-area v-model="evaluation.clinicalEvolution" rows="3" placeholder="Evolução Clínica"/>
@@ -42,6 +42,7 @@
         <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
         <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
+      <pause-button />
     </main>
     <MainFooter />
   </div>
@@ -51,6 +52,7 @@
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import PauseButton from '../../components/PauseButton.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import NutritionistRadius from '../../components/NutritionistRadius.vue'
@@ -63,6 +65,7 @@ export default {
     Header,
     MainFooter,
     GreenButton,
+    PauseButton,
     DefaultTextArea,
     EvaluationBreadcrumbs,
     NutritionistRadius,

@@ -45,6 +45,7 @@
         <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
         <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
+      <pause-button />
     </main>
     <MainFooter />
   </div>
@@ -54,6 +55,7 @@
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import PauseButton from '../../components/PauseButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import NutritionistRadius from '../../components/NutritionistRadius.vue'
 import axios from 'axios'
@@ -64,6 +66,7 @@ export default {
     Header,
     MainFooter,
     GreenButton,
+    PauseButton,
     EvaluationBreadcrumbs,
     NutritionistRadius
   },

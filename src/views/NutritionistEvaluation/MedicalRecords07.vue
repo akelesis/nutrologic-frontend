@@ -27,13 +27,13 @@
           </div>
           <div class="conditions-grid-container">
             <p>Marque todas as condições que se encaixam</p>
-            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-1" id="item-1" name="item-1-check" value="Câncer"/>
-            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-2" id="item-2" name="item-2-check" value="AIDS"/>
-            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-3" id="item-3" name="item-3-check" value="Caquexia cardíaca ou pulmonar"/>
-            <default-checkbox v-model="evaluation.conditions" class="grid-row-2 grid-item-half-1" id="item-4" name="item-4-check" value="Úlcera de decúbito, ferida aberta ou fístula"/>
-            <default-checkbox v-model="evaluation.conditions" class="grid-row-2 grid-item-half-2" id="item-5" name="item-5-check" value="Presença de trauma"/>
-            <default-checkbox v-model="evaluation.conditions" class="grid-row-3 grid-item-half-1" id="item-6" name="item-6-check" value="Idade maior que 65 anos"/>
-            <default-checkbox v-model="evaluation.conditions" class="grid-row-3 grid-item-half-2" id="item-7" name="item-7-check" value="Insuficiência renal crônica"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-1" id="item-1" name="item-1-check" label="Câncer"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-2" id="item-2" name="item-2-check" label="AIDS"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-1 grid-item-3" id="item-3" name="item-3-check" label="Caquexia cardíaca ou pulmonar"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-2 grid-item-half-1" id="item-4" name="item-4-check" label="Úlcera de decúbito, ferida aberta ou fístula"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-2 grid-item-half-2" id="item-5" name="item-5-check" label="Presença de trauma"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-3 grid-item-half-1" id="item-6" name="item-6-check" label="Idade maior que 65 anos"/>
+            <default-checkbox v-model="evaluation.conditions" class="grid-row-3 grid-item-half-2" id="item-7" name="item-7-check" label="Insuficiência renal crônica"/>
           </div>
           <p id="total-score">Pontuação Total: 0</p>
         </div>
@@ -42,6 +42,7 @@
         <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
         <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
+      <pause-button />
     </main>
     <MainFooter />
   </div>
@@ -51,6 +52,7 @@
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import PauseButton from '../../components/PauseButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import DefaultCheckbox from '../../components/DefaultCheckbox.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
@@ -63,6 +65,7 @@ export default {
     Header,
     MainFooter,
     GreenButton,
+    PauseButton,
     EvaluationBreadcrumbs,
     DefaultCheckbox,
     DefaultTextArea,

@@ -5,17 +5,17 @@
         type="radio"
         :name="name"
         :id="id"
-        :value="value"
+        :value="label"
       />
       <span class="nutritionist-radio-control"></span>
     </span>
-    <label :for="id">{{ value }}</label>
+    <label :for="id">{{ label }}</label>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['value', 'id', 'name']
+  props: ['value', 'id', 'name', 'label']
 }
 </script>
 

@@ -15,5 +15,6 @@ export default {
     height: 100vh;
     background-color: #000;
     opacity: 0.3;
+    z-index: 2;
 }
 </style>

@@ -15,24 +15,24 @@
         <div class="medical-records-grid-container">
           <p>IDN</p>
           <div class="medical-records-left-input">
-            <nutritionist-radius v-model="evaluation.idn" value="Desnutrição Grave" id="IDN-1" name="IDN"/>
-            <nutritionist-radius v-model="evaluation.idn"  value="Desnutrição Moderada" id="IDN-2" name="IDN"/>
-            <nutritionist-radius v-model="evaluation.idn"  value="Desnutrição Leve" id="IDN-3" name="IDN"/>
-            <nutritionist-radius v-model="evaluation.idn"  value="Magreza" id="IDN-4" name="IDN"/>
-            <nutritionist-radius v-model="evaluation.idn"  value="Eutrofia" id="IDN-5" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Desnutrição Grave" id="IDN-1" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Desnutrição Moderada" id="IDN-2" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Desnutrição Leve" id="IDN-3" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Magreza" id="IDN-4" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Eutrofia" id="IDN-5" name="IDN"/>
           </div>
           <div class="medical-records-right-input">
-            <nutritionist-radius v-model="evaluation.idn"  value="Sobrepeso" id="IDN-6" name="IDN"/>
-            <nutritionist-radius v-model="evaluation.idn"  value="Obesidade I" id="IDN-7" name="IDN"/>
-            <nutritionist-radius v-model="evaluation.idn"  value="Obesidade II" id="IDN-8" name="IDN"/>
-            <nutritionist-radius v-model="evaluation.idn"  value="Obesidade III" id="IDN-9" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Sobrepeso" id="IDN-6" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Obesidade I" id="IDN-7" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Obesidade II" id="IDN-8" name="IDN"/>
+            <nutritionist-radius v-model="evaluation.idn" label="Obesidade III" id="IDN-9" name="IDN"/>
           </div>
         </div>
         <div class="risks-input-container">
           <p>Risco Nutricional: </p>
           <div class="risks-radius-input">
-            <nutritionist-radius v-model="evaluation.nutritional_risk" value="Não" id="risks-no" name="risks"/>
-            <nutritionist-radius v-model="evaluation.nutritional_risk" value="Sim" id="risks-yes" name="risks"/>
+            <nutritionist-radius v-model="evaluation.nutritional_risk" label="Não" id="risks-no" name="risks"/>
+            <nutritionist-radius v-model="evaluation.nutritional_risk" label="Sim" id="risks-yes" name="risks"/>
           </div>
         </div>
         <div class="conduct-input-container">
@@ -44,6 +44,7 @@
         <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
         <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
+      <pause-button />
     </main>
     <MainFooter />
   </div>
@@ -53,6 +54,7 @@
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import PauseButton from '../../components/PauseButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import NutritionistRadius from '../../components/NutritionistRadius.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
@@ -64,6 +66,7 @@ export default {
     Header,
     MainFooter,
     GreenButton,
+    PauseButton,
     EvaluationBreadcrumbs,
     NutritionistRadius,
     DefaultTextArea

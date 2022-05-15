@@ -25,7 +25,7 @@
               <span>Percentual de perda: </span>
               <default-input v-model="evaluation.loss_percentage" inputType="text" placeholder=""/>
           </div>
-          <default-checkbox v-model="evaluation.weightLoss2weeks" class="recent-weight-loss" id="recent-weight-loss" name="recent-weight-loss-check" value="Houve perda de peso nas últimas 2 semanas"/>
+          <default-checkbox v-model="evaluation.weightLoss2weeks" class="recent-weight-loss" id="recent-weight-loss" name="recent-weight-loss-check" label="Houve perda de peso nas últimas 2 semanas"/>
           <p id="total-score">Pontuação Total: 0</p>
         </div>
       </div>
@@ -33,6 +33,7 @@
         <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
         <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
+      <pause-button />
     </main>
     <MainFooter />
   </div>
@@ -42,6 +43,7 @@
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import PauseButton from '../../components/PauseButton.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import DefaultInput from '../../components/DefaultInput.vue'
 import DefaultCheckbox from '../../components/DefaultCheckbox.vue'
@@ -53,6 +55,7 @@ export default {
     Header,
     MainFooter,
     GreenButton,
+    PauseButton,
     EvaluationBreadcrumbs,
     DefaultInput,
     DefaultCheckbox

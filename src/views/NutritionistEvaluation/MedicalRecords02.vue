@@ -18,8 +18,8 @@
           <div class="medical-records-allergies">
             <p>Alergia ou intolerância alimentar:</p>
             <div class="allergies-radius-input">
-              <nutritionist-radius v-model="evaluation.alergies" value="Não" id="allergies-no" name="allergies"/>
-              <nutritionist-radius v-model="evaluation.alergies" value="Sim" id="allergies-yes" name="allergies"/>
+              <nutritionist-radius v-model="evaluation.alergies" label="Não" id="allergies-no" name="allergies"/>
+              <nutritionist-radius v-model="evaluation.alergies" label="Sim" id="allergies-yes" name="allergies"/>
             </div>
             <default-text-area v-model="evaluation.foods" rows="2" placeholder="Alimentos relacionados"/>
           </div>
@@ -27,8 +27,8 @@
             <div class="exercises-input-container">
               <p>Atividades físicas:</p>
               <div class="exercises-radius-input">
-                <nutritionist-radius v-model="evaluation.physical_activities" value="Não" id="exercises-no" name="exercises"/>
-                <nutritionist-radius v-model="evaluation.physical_activities" value="Sim" id="exercises-yes" name="exercises"/>
+                <nutritionist-radius v-model="evaluation.physical_activities" label="Não" id="exercises-no" name="exercises"/>
+                <nutritionist-radius v-model="evaluation.physical_activities" label="Sim" id="exercises-yes" name="exercises"/>
               </div>
             </div>
             <div class="exercises-input-container">
@@ -44,6 +44,7 @@
         <green-button label="Anterior" :isInverted="true" @click.native="redirectPreviousRecord"/>
         <green-button label="Próximo" @click.native="redirectNextRecord"/>
       </div>
+      <pause-button />
     </main>
     <MainFooter />
   </div>
@@ -53,6 +54,7 @@
 import Header from '../../components/Header.vue'
 import MainFooter from '../../components/MainFooter.vue'
 import GreenButton from '../../components/GreenButton.vue'
+import PauseButton from '../../components/PauseButton.vue'
 import DefaultTextArea from '../../components/DefaultTextArea.vue'
 import EvaluationBreadcrumbs from '../../components/EvaluationBreadcrumbs.vue'
 import NutritionistRadius from '../../components/NutritionistRadius.vue'
@@ -65,6 +67,7 @@ export default {
     Header,
     MainFooter,
     GreenButton,
+    PauseButton,
     DefaultTextArea,
     EvaluationBreadcrumbs,
     NutritionistRadius,
