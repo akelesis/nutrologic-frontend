@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     patientEvaluation: {},
+    patientGlobal: {},
     evaluation: {}
   },
   mutations: {
@@ -19,8 +20,11 @@ export default new Vuex.Store({
         delete axios.defaults.headers.common.Authorization
       }
     },
-    setPatientEvaluation (state, patientEvaluation) {
-      state.patientEvaluation = patientEvaluation
+    setPatientEvaluation (state, payload) {
+      state.patientEvaluation = payload
+    },
+    setPatientGlobal (state, payload) {
+      state.patientGlobal = payload
     }
   },
   actions: {
