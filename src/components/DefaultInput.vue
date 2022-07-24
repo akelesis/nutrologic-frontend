@@ -1,5 +1,5 @@
 <template>
-  <input :type="inputType" class="DefaultInput" :placeholder="placeholder" :value="value">
+  <input :type="inputType" class="DefaultInput" :placeholder="placeholder" :value="value" @input="$emit('input', $event.target.value)">
 </template>
 
 <script>

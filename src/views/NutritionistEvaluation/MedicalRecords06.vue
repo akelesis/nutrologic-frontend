@@ -76,6 +76,7 @@ export default {
       }
     },
     redirectNextRecord () {
+      console.log(this.evaluation)
       this.$router.push(`/nutritionist/evaluation/medicalRecords07?
         patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
     },

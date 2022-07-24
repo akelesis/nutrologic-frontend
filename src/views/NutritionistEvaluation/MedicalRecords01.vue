@@ -15,34 +15,34 @@
           <p id="medical-records-title">Cadastro de Prontuário e Avaliação</p>
           <div class="medical-records-content-container">
             <div class="nutritionist-input-group">
-              <default-input v-model="evaluationLocal.med_record_number" placeholder="Número do prontuário"/>
+              <default-input v-model="evaluation.med_record_number" placeholder="Número do prontuário"/>
             </div>
             <div class="nutritionist-input-group">
-              <default-input v-model="evaluationLocal.companion" placeholder="Acompanhante"/>
-              <default-input v-model="evaluationLocal.diagnosis" placeholder="Diagnóstico"/>
+              <default-input v-model="evaluation.companion" placeholder="Acompanhante"/>
+              <default-input v-model="evaluation.diagnosis" placeholder="Diagnóstico"/>
             </div>
             <div class="desease-info-container">
               <p class="question-title">Estadiamento:</p>
               <div class="desease-stage-container">
                 <div class="radius-group">
-                  <nutritionist-radius id="one" v-model="evaluationLocal.state" name="desease-stage-radius" label="I" />
-                  <nutritionist-radius id="two" v-model="evaluationLocal.state" name="desease-stage-radius" label="II" />
-                  <nutritionist-radius id="three" v-model="evaluationLocal.state" name="desease-stage-radius" label="III" />
-                  <nutritionist-radius id="four" v-model="evaluationLocal.state" name="desease-stage-radius" label="IV" />
+                  <nutritionist-radius id="one" v-model="evaluation.state" name="desease-stage-radius" label="I" />
+                  <nutritionist-radius id="two" v-model="evaluation.state" name="desease-stage-radius" label="II" />
+                  <nutritionist-radius id="three" v-model="evaluation.state" name="desease-stage-radius" label="III" />
+                  <nutritionist-radius id="four" v-model="evaluation.state" name="desease-stage-radius" label="IV" />
                 </div>
                 <div class="tmng-fields">
                   <label for="t-field">T</label>
-                  <input type="text" v-model="evaluationLocal.t"  class="tmng-field" id="t-field">
+                  <input type="text" v-model="evaluation.t"  class="tmng-field" id="t-field">
                   <label for="m-field">M</label>
-                  <input type="text" v-model="evaluationLocal.m" id="m-field" class="tmng-field">
+                  <input type="text" v-model="evaluation.m" id="m-field" class="tmng-field">
                   <label for="n-field">N</label>
-                  <input type="text" v-model="evaluationLocal.n"  id="n-field" class="tmng-field">
+                  <input type="text" v-model="evaluation.n"  id="n-field" class="tmng-field">
                   <label for="g-field">G</label>
-                  <input type="text" v-model="evaluationLocal.g" id="g-field" class="tmng-field">
+                  <input type="text" v-model="evaluation.g" id="g-field" class="tmng-field">
                 </div>
               </div>
             </div>
-            <default-text-area :inputValue="evaluationLocal.treatment" placeholder="Tratamento" :rows="3"/>
+            <default-text-area v-model="evaluation.treatment" placeholder="Tratamento" :rows="3"/>
           </div>
         </div>
         <green-button label="Próximo" @click.native="redirectMedicalRecord02"/>
@@ -84,8 +84,7 @@ export default {
   data () {
     return {
       patient: {},
-      patientEval: {},
-      evaluationLocal: {}
+      patientEval: {}
     }
   },
   methods: {
@@ -105,10 +104,9 @@ export default {
       }
     },
     redirectMedicalRecord02 () {
-      // this.$store.commit('setPatientEvaluation', this.evaluationLocal)
-      console.log(this.evaluationLocal)
-      // this.$router.push(`/nutritionist/evaluation/medicalRecords02?
-      //   patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
+      console.log(this.evaluation)
+      this.$router.push(`/nutritionist/evaluation/medicalRecords02?
+        patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
     }
   },
   mounted () {

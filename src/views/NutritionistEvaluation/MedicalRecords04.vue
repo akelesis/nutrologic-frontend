@@ -90,7 +90,7 @@
           <div class="last-input-container">
             <span>Circunferência da panturrilha: </span>
             <div>
-              <default-input v-model="evaluation.calfCircumference" inputType="text" placeholder=""/>
+              <default-input v-model="evaluation.calf_circunference" inputType="text" placeholder=""/>
               <span>cm</span>
             </div>
           </div>
@@ -127,7 +127,8 @@ export default {
   },
   data () {
     return {
-      patient: {}
+      patient: {},
+      patientEval: {}
     }
   },
   methods: {
@@ -139,8 +140,16 @@ export default {
       } catch (err) {
         console.log(err)
       }
+      try {
+        this.patientEval = await axios.get(`${baseUrl}/patientEval/${patientId}`)
+          .then(res => res.data)
+      } catch (err) {
+        console.log(err)
+      }
+      console.log(this.patientEval)
     },
     redirectNextRecord () {
+      console.log(this.evaluation)
       this.$router.push(`/nutritionist/evaluation/medicalRecords05?
         patient=${this.$route.query.patient}&patient_evaluation=${this.$route.query.patient_evaluation}`)
     },
@@ -158,6 +167,9 @@ export default {
     },
     evaluation () {
       return this.$store.state.evaluation
+    },
+    patientGlobal () {
+      return this.$store.state.patientGlobal
     }
   }
 }

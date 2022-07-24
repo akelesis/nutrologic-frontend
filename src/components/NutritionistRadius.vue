@@ -6,6 +6,7 @@
         :name="name"
         :id="id"
         :value="label"
+        @input="$emit('input', $event.target.value)"
       />
       <span class="nutritionist-radio-control"></span>
     </span>

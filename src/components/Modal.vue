@@ -18,11 +18,6 @@
 export default {
   props: {
     patientEval: {}
-  },
-  computed: {
-    patientGlobal () {
-      return this.$store.state.patientGlobal
-    }
   }
 }
 </script>

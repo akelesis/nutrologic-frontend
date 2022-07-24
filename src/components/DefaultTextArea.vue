@@ -1,10 +1,10 @@
 <template>
-  <textarea class="DefaultTextArea" :rows="rows" :placeholder="placeholder" v-model="inputValue"></textarea>
+  <textarea class="DefaultTextArea" :value="value" :rows="rows" :placeholder="placeholder" @input="$emit('input', $event.target.value)"></textarea>
 </template>
 
 <script>
 export default {
-  props: ['rows', 'placeholder', 'inputValue']
+  props: ['rows', 'placeholder', 'value']
 }
 </script>
 
